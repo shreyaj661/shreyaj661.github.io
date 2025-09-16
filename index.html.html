@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Name – Resume</title>
+  <meta name="description" content="Resume and portfolio of Your Name." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0d10;            /* deep gray */
+      --card: #12151a;
+      --muted: #8b93a1;
+      --text: #eaeef6;
+      --accent: #62a8ff;       /* soft blue */
+      --accent-2: #7cf7d4;     /* teal */
+      --ring: 24px;
+    }
+    * { box-sizing: border-box }
+    html,body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: radial-gradient(1200px 800px at 10% -10%, rgba(124,247,212,.12), transparent 40%), radial-gradient(900px 700px at 110% 10%, rgba(98,168,255,.10), transparent 40%), var(--bg); color: var(--text); }
+    a { color: var(--accent); text-decoration: none }
+    a:hover { text-decoration: underline }
+    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 20px 80px }
+
+    /* header */
+    .hero { display:grid; grid-template-columns: 120px 1fr auto; gap: 18px; align-items:center; padding: 18px; border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.06); box-shadow: 0 10px 30px rgba(0,0,0,.25) }
+    .avatar { width: 96px; height: 96px; border-radius: 24px; background: linear-gradient(180deg, #1d2430, #12151a); border: 1px solid rgba(255,255,255,.06); position:relative; overflow:hidden }
+    .avatar::after{ content:""; position:absolute; inset:-1px; border-radius:24px; padding:2px; background: radial-gradient(200px 120px at 40% -10%, rgba(98,168,255,.5), transparent 40%), radial-gradient(200px 150px at 80% 120%, rgba(124,247,212,.4), transparent 40%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
+    .name { font-size: 28px; font-weight: 700; letter-spacing: .2px }
+    .tagline { color: var(--muted); margin-top: 6px }
+    .cta { display:flex; gap:10px; align-items:center}
+    .btn { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius: 12px; border:1px solid rgba(255,255,255,.08); background:#0f1318; color:var(--text); font-weight:600 }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0b0d10; border:none }
+
+    /* section */
+    section { margin-top: 28px; padding: 18px; background: var(--card); border:1px solid rgba(255,255,255,.06); border-radius: 18px }
+    h2 { margin: 0 0 12px; font-size: 18px; letter-spacing:.25px }
+    .grid { display:grid; gap:14px }
+
+    /* experience cards */
+    .xp { padding: 14px; border-radius: 14px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.05) }
+    .xp h3 { margin:0; font-size:15px }
+    .xp .meta { display:flex; gap:10px; flex-wrap:wrap; color: var(--muted); font-size: 13px; margin-top:6px }
+    .xp p { margin:10px 0 0; color:#cfd6e6; line-height:1.5 }
+
+    /* badges */
+    .badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
+    .badge { font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background: #0f1318; color:#dfe7fb }
+
+    /* footer */
+    footer{ margin-top:24px; color:var(--muted); font-size:13px; text-align:center }
+
+    @media (min-width: 720px){
+      .grid.cols-2{ grid-template-columns: 1fr 1fr }
+      .grid.cols-3{ grid-template-columns: 1fr 1fr 1fr }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- Hero / Header -->
+    <header class="hero">
+      <div class="avatar" aria-hidden="true"></div>
+      <div>
+        <div class="name">Your Name</div>
+        <div class="tagline">Job Title • Keywords • Location</div>
+        <div class="badges" aria-label="Key skills">
+          <span class="badge">Python</span>
+          <span class="badge">Data Analysis</span>
+          <span class="badge">Neuroimaging</span>
+        </div>
+      </div>
+      <nav class="cta">
+        <a class="btn" href="mailto:you@example.com">Email</a>
+        <a class="btn" href="https://github.com/yourhandle" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noreferrer">Download PDF</a>
+      </nav>
+    </header>
+
+    <!-- Experience -->
+    <section>
+      <h2>Experience</h2>
+      <div class="grid">
+        <article class="xp">
+          <h3>Postdoctoral Fellow — Max Planck Institute</h3>
+          <div class="meta">Tübingen · 2023 — Present</div>
+          <p>Lead research in <strong>CBV‑fMRI</strong>, contrast agents, and high‑field MRI. Built reproducible analysis pipelines and cross‑lab collaborations.</p>
+          <div class="badges">
+            <span class="badge">fMRI</span><span class="badge">Python</span><span class="badge">FSL/AFNI</span>
+          </div>
+        </article>
+        <article class="xp">
+          <h3>Research Fellow — University of Queensland</h3>
+          <div class="meta">Brisbane · 2020 — 2023</div>
+          <p>Developed imaging protocols (UTE, FLASH) and validated molecular probes. Mentored students; co‑authored X publications.</p>
+          <div class="badges">
+            <span class="badge">MRI Sequences</span><span class="badge">Signal Processing</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Education & Highlights in two columns -->
+    <section>
+      <div class="grid cols-2">
+        <div>
+          <h2>Education</h2>
+          <div class="xp">
+            <h3>Ph.D., Biomedical Engineering</h3>
+            <div class="meta">University · 2016 — 2020</div>
+            <p>Thesis on microvascular dynamics and quantitative MR methods.</p>
+          </div>
+          <div class="xp">
+            <h3>B.Tech., Computer Science</h3>
+            <div class="meta">Sunrise University · 2012 — 2016</div>
+          </div>
+        </div>
+        <div>
+          <h2>Selected Projects</h2>
+          <div class="xp">
+            <h3>AMPLIFY – fMRI preprocessing toolbox</h3>
+            <div class="meta"><a href="https://github.com/yourhandle/amplify">github.com/yourhandle/amplify</a></div>
+            <p>Automated motion correction, despiking, masking, and reporting with PowerPoint/HTML exports.</p>
+          </div>
+          <div class="xp">
+            <h3>BLUsH – CBV pipeline</h3>
+            <div class="meta"><a href="https://github.com/yourhandle/BLUsH">github.com/yourhandle/BLUsH</a></div>
+            <p>End‑to‑end CBV‑fMRI analysis with FSLeyes rendering and slice summaries.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications or Skills -->
+    <section>
+      <div class="grid cols-3">
+        <div>
+          <h2>Core Skills</h2>
+          <ul>
+            <li>Python (NumPy, Pandas, Matplotlib)</li>
+            <li>MRI toolkits (FSL, AFNI, ANTs)</li>
+            <li>LaTeX, Git, Linux, macOS</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Highlights</h2>
+          <ul>
+            <li>10+ publications, 2 invited talks</li>
+            <li>Built multi‑site analysis pipeline</li>
+            <li>Mentor to 5+ junior researchers</li>
+          </ul>
+        </div>
+        <div>
+          <h2>Contact</h2>
+          <ul>
+            <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
+            <li>GitHub: <a href="https://github.com/yourhandle">@yourhandle</a></li>
+            <li>LinkedIn: <a href="#">/in/your‑profile</a></li>
+            <li>Google Scholar: <a href="#">scholar link</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Your Name · Built with GitHub Pages
+    </footer>
+  </div>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
