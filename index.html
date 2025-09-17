@@ -3,78 +3,61 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Your Name – Resume</title>
-  <meta name="description" content="Resume and portfolio of Your Name." />
+  <title>Shreya Jain — Resume</title>
+  <meta name="description" content="One‑page resume for Shreya Jain, Computational Linguistics student and Research Intern at MPI for Biological Cybernetics, Tübingen." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0b0d10;            /* deep gray */
-      --card: #12151a;
-      --muted: #8b93a1;
-      --text: #eaeef6;
-      --accent: #62a8ff;       /* soft blue */
-      --accent-2: #7cf7d4;     /* teal */
-      --ring: 24px;
-    }
-    * { box-sizing: border-box }
-    html,body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: radial-gradient(1200px 800px at 10% -10%, rgba(124,247,212,.12), transparent 40%), radial-gradient(900px 700px at 110% 10%, rgba(98,168,255,.10), transparent 40%), var(--bg); color: var(--text); }
-    a { color: var(--accent); text-decoration: none }
-    a:hover { text-decoration: underline }
-    .wrap { max-width: 980px; margin: 0 auto; padding: 28px 20px 80px }
-
-    /* header */
-    .hero { display:grid; grid-template-columns: 120px 1fr auto; gap: 18px; align-items:center; padding: 18px; border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.06); box-shadow: 0 10px 30px rgba(0,0,0,.25) }
-    .avatar { width: 96px; height: 96px; border-radius: 24px; background: linear-gradient(180deg, #1d2430, #12151a); border: 1px solid rgba(255,255,255,.06); position:relative; overflow:hidden }
-    .avatar::after{ content:""; position:absolute; inset:-1px; border-radius:24px; padding:2px; background: radial-gradient(200px 120px at 40% -10%, rgba(98,168,255,.5), transparent 40%), radial-gradient(200px 150px at 80% 120%, rgba(124,247,212,.4), transparent 40%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-    .name { font-size: 28px; font-weight: 700; letter-spacing: .2px }
-    .tagline { color: var(--muted); margin-top: 6px }
-    .cta { display:flex; gap:10px; align-items:center}
-    .btn { display:inline-flex; align-items:center; gap:10px; padding:10px 14px; border-radius: 12px; border:1px solid rgba(255,255,255,.08); background:#0f1318; color:var(--text); font-weight:600 }
-    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:#0b0d10; border:none }
-
-    /* section */
-    section { margin-top: 28px; padding: 18px; background: var(--card); border:1px solid rgba(255,255,255,.06); border-radius: 18px }
-    h2 { margin: 0 0 12px; font-size: 18px; letter-spacing:.25px }
-    .grid { display:grid; gap:14px }
-
-    /* experience cards */
-    .xp { padding: 14px; border-radius: 14px; background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.05) }
-    .xp h3 { margin:0; font-size:15px }
-    .xp .meta { display:flex; gap:10px; flex-wrap:wrap; color: var(--muted); font-size: 13px; margin-top:6px }
-    .xp p { margin:10px 0 0; color:#cfd6e6; line-height:1.5 }
-
-    /* badges */
-    .badges { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
-    .badge { font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.08); background: #0f1318; color:#dfe7fb }
-
-    /* footer */
-    footer{ margin-top:24px; color:var(--muted); font-size:13px; text-align:center }
-
-    @media (min-width: 720px){
-      .grid.cols-2{ grid-template-columns: 1fr 1fr }
-      .grid.cols-3{ grid-template-columns: 1fr 1fr 1fr }
-    }
+    :root { --bg:#0b0d10; --card:#12151a; --muted:#8b93a1; --text:#eaeef6; --accent:#62a8ff; --accent2:#7cf7d4; }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, rgba(124,247,212,.12), transparent 40%),radial-gradient(900px 700px at 110% 10%, rgba(98,168,255,.10), transparent 40%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 20px 64px}
+    .hero{display:grid;grid-template-columns:100px 1fr auto;gap:18px;align-items:center;padding:18px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .avatar{width:84px;height:84px;border-radius:20px;background:linear-gradient(180deg,#1d2430,#12151a);border:1px solid rgba(255,255,255,.06)}
+    .name{font-size:28px;font-weight:700}
+    .tagline{color:var(--muted);margin-top:6px}
+    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:#0f1318}
+    .cta{display:flex;gap:10px;align-items:center}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0f1318;color:var(--text);font-weight:600}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0d10;border:none}
+    section{margin-top:22px;padding:18px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px}
+    h2{margin:0 0 12px;font-size:18px;letter-spacing:.2px}
+    .grid{display:grid;gap:14px}
+    .grid.cols-2{grid-template-columns:1fr}
+    .grid.cols-3{grid-template-columns:1fr}
+    @media(min-width:720px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:1fr 1fr 1fr}}
+    .xp{padding:14px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.05)}
+    .xp h3{margin:0;font-size:15px}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:6px}
+    .xp ul{margin:8px 0 0 18px;color:#cfd6e6}
+    .two-col{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.two-col{grid-template-columns:2fr 1fr}}
+    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <!-- Hero / Header -->
+    <!-- Header -->
     <header class="hero">
       <div class="avatar" aria-hidden="true"></div>
       <div>
         <div class="name">Shreya Jain</div>
-        <div class="tagline">Job Title • Keywords • Location</div>
+        <div class="tagline">Computational Linguistics (B.A., Semester 3) · Research Intern, MPI for Biological Cybernetics · Tübingen, Germany</div>
         <div class="badges" aria-label="Key skills">
           <span class="badge">Python</span>
-          <span class="badge">Data Analysis</span>
-          <span class="badge">Neuroimaging</span>
+          <span class="badge">MATLAB</span>
+          <span class="badge">Neuroimaging (FSL/AFNI)</span>
+          <span class="badge">HTML/CSS/JS</span>
         </div>
       </div>
       <nav class="cta">
-        <a class="btn" href="mailto:you@example.com">Email</a>
-        <a class="btn" href="https://github.com/yourhandle" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="mailto:shreya.jain@tuebingen.mpg.de">Email</a>
+        <a class="btn" href="https://github.com/shreyaj661" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/shreyaj661/" target="_blank" rel="noreferrer">LinkedIn</a>
         <a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noreferrer">Download PDF</a>
       </nav>
     </header>
@@ -84,88 +67,126 @@
       <h2>Experience</h2>
       <div class="grid">
         <article class="xp">
-          <h3>Postdoctoral Fellow — Max Planck Institute</h3>
-          <div class="meta">Tübingen · 2023 — Present</div>
-          <p>Lead research in <strong>CBV‑fMRI</strong>, contrast agents, and high‑field MRI. Built reproducible analysis pipelines and cross‑lab collaborations.</p>
-          <div class="badges">
-            <span class="badge">fMRI</span><span class="badge">Python</span><span class="badge">FSL/AFNI</span>
-          </div>
+          <h3>Research Intern — Max Planck Institute for Biological Cybernetics</h3>
+          <div class="meta">Tübingen · Aug 2025 – Present</div>
+          <ul>
+            <li>Assist in neuroimaging research and scientific programming for fMRI data analysis.</li>
+            <li>Contribute to reproducible pipelines (motion correction, despiking, masking, reporting).</li>
+          </ul>
         </article>
         <article class="xp">
-          <h3>Research Fellow — University of Queensland</h3>
-          <div class="meta">Brisbane · 2020 — 2023</div>
-          <p>Developed imaging protocols (UTE, FLASH) and validated molecular probes. Mentored students; co‑authored X publications.</p>
-          <div class="badges">
-            <span class="badge">MRI Sequences</span><span class="badge">Signal Processing</span>
-          </div>
+          <h3>Research Intern — Queensland Brain Institute & Centre for Advanced Imaging</h3>
+          <div class="meta">The University of Queensland, Brisbane · Mar 2023 – Dec 2023</div>
+          <ul>
+            <li>Explored perfusion/contrast MRI workflows; prepared an abstract for ISMRM 2024 (Singapore).</li>
+          </ul>
+        </article>
+        <article class="xp">
+          <h3>Associate Technology Level 2 — Publicis Sapient</h3>
+          <div class="meta">Gurugram · Sep 2019 – Mar 2022</div>
+          <ul>
+            <li>Software development and automation; collaborated with cross‑functional teams.</li>
+            <li>Worked with CI/CD (Azure DevOps) and SQL‑backed applications.</li>
+          </ul>
+        </article>
+        <article class="xp">
+          <h3>Technical Consultant — Grid Infocom</h3>
+          <div class="meta">Gurugram · Sep 2018 – Sep 2019</div>
+          <ul>
+            <li>Developed RPA/automation solutions; supported production deployments.</li>
+          </ul>
+        </article>
+        <article class="xp">
+          <h3>Technical Trainer — National Institute of Information Technology (NIIT)</h3>
+          <div class="meta">New Delhi · Jul 2017 – Apr 2018</div>
+          <ul>
+            <li>Trained students in programming fundamentals (Java/C++), databases, and web basics.</li>
+          </ul>
         </article>
       </div>
     </section>
 
-    <!-- Education & Highlights in two columns -->
-    <section>
-      <div class="grid cols-2">
-        <div>
-          <h2>Education</h2>
-          <div class="xp">
-            <h3>Ph.D., Biomedical Engineering</h3>
-            <div class="meta">University · 2016 — 2020</div>
-            <p>Thesis on microvascular dynamics and quantitative MR methods.</p>
-          </div>
-          <div class="xp">
-            <h3>B.Tech., Computer Science</h3>
-            <div class="meta">Sunrise University · 2012 — 2016</div>
-          </div>
+    <!-- Education + Sidebar -->
+    <section class="two-col">
+      <div>
+        <h2>Education</h2>
+        <div class="grid">
+          <article class="xp">
+            <h3>B.A., Computational Linguistics — University of Tübingen</h3>
+            <div class="meta">Tübingen · Present (Semester 3)</div>
+          </article>
+          <article class="xp">
+            <h3>B.Sc., Computer Science — Sunrise University</h3>
+            <div class="meta">Rajasthan · Jul 2012 – May 2015 · 65%</div>
+          </article>
+          <article class="xp">
+            <h3>Senior Secondary (Science) — Kids Corner Happy Inter College</h3>
+            <div class="meta">Mar 2012 · 76%</div>
+          </article>
         </div>
-        <div>
-          <h2>Selected Projects</h2>
-          <div class="xp">
-            <h3>AMPLIFY – fMRI preprocessing toolbox</h3>
-            <div class="meta"><a href="https://github.com/yourhandle/amplify">github.com/yourhandle/amplify</a></div>
-            <p>Automated motion correction, despiking, masking, and reporting with PowerPoint/HTML exports.</p>
-          </div>
-          <div class="xp">
-            <h3>BLUsH – CBV pipeline</h3>
-            <div class="meta"><a href="https://github.com/yourhandle/BLUsH">github.com/yourhandle/BLUsH</a></div>
-            <p>End‑to‑end CBV‑fMRI analysis with FSLeyes rendering and slice summaries.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- Publications or Skills -->
-    <section>
-      <div class="grid cols-3">
-        <div>
-          <h2>Core Skills</h2>
+        <h2 style="margin-top:16px">Publication</h2>
+        <article class="xp">
+          <h3>Jain, S.; Kurniawan, N. (2024)</h3>
+          <p>“Testing the utility of Dynamic Susceptibility Contrast (DSC)‑Perfusion toolbox for mapping the characteristics of mouse brain perfusion.” <em>ISMRM 2024</em>, Singapore.</p>
+        </article>
+      </div>
+
+      <div>
+        <h2>Skills</h2>
+        <article class="xp">
           <ul>
-            <li>Python (NumPy, Pandas, Matplotlib)</li>
-            <li>MRI toolkits (FSL, AFNI, ANTs)</li>
-            <li>LaTeX, Git, Linux, macOS</li>
+            <li><strong>Programming:</strong> C, C++, C#, Java, .NET (basic), Python, R, MATLAB, LaTeX, Markdown, Bash</li>
+            <li><strong>Web:</strong> HTML5, CSS3, JavaScript, jQuery, Bootstrap 4</li>
+            <li><strong>Data/DB:</strong> JSON, YAML, XML; MS‑SQL Server, Oracle (11g SQL Fundamentals)</li>
+            <li><strong>Imaging:</strong> FSLeyes, ITK‑Snap, AFNI, MiPav, DeepLabCut</li>
+            <li><strong>Tools:</strong> VS Code, PyCharm, IntelliJ IDEA, UiPath, ABBYY FlexiCapture 12, Power BI, Azure DevOps (CI/CD)</li>
+            <li><strong>Version Control:</strong> Git, GitHub, TortoiseSVN</li>
+            <li><strong>OS:</strong> Windows, Linux/Unix</li>
           </ul>
-        </div>
-        <div>
-          <h2>Highlights</h2>
+        </article>
+
+        <h2 style="margin-top:16px">Certifications</h2>
+        <article class="xp">
           <ul>
-            <li>10+ publications, 2 invited talks</li>
-            <li>Built multi‑site analysis pipeline</li>
-            <li>Mentor to 5+ junior researchers</li>
+            <li>RPA Developer Advanced — UiPath (Nov 2018)</li>
+            <li>PG Diploma in Software Engineering — NIIT (Oct 2015 – Jun 2017 · GPA 9/10)</li>
+            <li>Oracle Database 11g: SQL Fundamentals (Aug 2017)</li>
           </ul>
-        </div>
-        <div>
-          <h2>Contact</h2>
+        </article>
+
+        <h2 style="margin-top:16px">Awards</h2>
+        <article class="xp">
           <ul>
-            <li>Email: <a href="mailto:you@example.com">you@example.com</a></li>
-            <li>GitHub: <a href="https://github.com/yourhandle">@yourhandle</a></li>
-            <li>LinkedIn: <a href="#">/in/your‑profile</a></li>
-            <li>Google Scholar: <a href="#">scholar link</a></li>
+            <li>Star of the Month — Publicis Sapient (2021)</li>
+            <li>Trainer of the Month — NIIT (2018)</li>
           </ul>
-        </div>
+        </article>
+
+        <h2 style="margin-top:16px">Languages</h2>
+        <article class="xp">
+          <ul>
+            <li>Hindi — Native</li>
+            <li>English — Professional Proficiency</li>
+            <li>German — A1 (DaF‑certified, University of Tübingen)</li>
+          </ul>
+        </article>
+
+        <h2 style="margin-top:16px">Contact</h2>
+        <article class="xp">
+          <ul>
+            <li><a href="tel:+4915140116598">+49 151 4011 6598</a></li>
+            <li><a href="mailto:shreya.jain@tuebingen.mpg.de">shreya.jain@tuebingen.mpg.de</a></li>
+            <li><a href="mailto:shreya.jain@student.uni-tuebingen.de">shreya.jain@student.uni-tuebingen.de</a></li>
+            <li><a href="https://github.com/shreyaj661" target="_blank" rel="noreferrer">github.com/shreyaj661</a></li>
+            <li><a href="https://www.linkedin.com/in/shreyaj661/" target="_blank" rel="noreferrer">linkedin.com/in/shreyaj661</a></li>
+          </ul>
+        </article>
       </div>
     </section>
 
     <footer>
-      © <span id="y"></span> Your Name · Built with GitHub Pages
+      © <span id="y"></span> Shreya Jain · Built with GitHub Pages
     </footer>
   </div>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
