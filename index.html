@@ -16,699 +16,364 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     :root {
-      --bg: #060912;
-      --bg-2: #0a1020;
-      --surface: rgba(255, 255, 255, .035);
-      --surface-hover: rgba(255, 255, 255, .06);
-      --border: rgba(148, 163, 184, .14);
-      --border-strong: rgba(148, 163, 184, .28);
-      --text: #e6eaf2;
-      --muted: #94a3b8;
-      --faint: #64748b;
-      --cyan: #22d3ee;
-      --violet: #8b5cf6;
-      --green: #34d399;
+      --bg: #060912; --text: #e6eaf2; --muted: #94a3b8; --soft: #cbd5e1;
+      --cyan: #22d3ee; --violet: #c084fc; --green: #34d399;
+      --border: rgba(148, 163, 184, .16);
       --grad: linear-gradient(120deg, #22d3ee 0%, #818cf8 50%, #c084fc 100%);
       --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
       --display: "Space Grotesk", "Inter", system-ui, sans-serif;
-      --radius: 16px;
     }
-
-    /* ---------- Base ---------- */
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
     html, body { overflow-x: hidden; }
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
+      margin: 0; background: var(--bg); color: var(--text);
       font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-size: 16.5px;
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
+      font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased;
     }
-    /* background: soft glows + faint grid */
     body::before {
-      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+      content: ""; position: fixed; inset: 0; z-index: -3; pointer-events: none;
       background:
-        radial-gradient(900px 600px at 85% -10%, rgba(139, 92, 246, .18), transparent 60%),
-        radial-gradient(800px 600px at -10% 20%, rgba(34, 211, 238, .12), transparent 60%),
+        radial-gradient(900px 600px at 85% -10%, rgba(139, 92, 246, .20), transparent 60%),
+        radial-gradient(800px 600px at -10% 20%, rgba(34, 211, 238, .13), transparent 60%),
         radial-gradient(700px 500px at 50% 110%, rgba(129, 140, 248, .10), transparent 60%),
         var(--bg);
     }
     body::after {
-      content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
       background-image:
         linear-gradient(rgba(148, 163, 184, .05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(148, 163, 184, .05) 1px, transparent 1px);
       background-size: 56px 56px;
-      mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
     }
+    #net { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
     a { color: var(--cyan); text-decoration: none; }
     a:hover { color: #67e8f9; }
-    strong { color: #fff; font-weight: 600; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
-    @media (max-width: 560px) { .wrap { padding: 0 16px; } }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 40px 24px 64px; }
+    @media (max-width: 560px) { .wrap { padding: 24px 16px 48px; } }
     .grad-text { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    ::selection { background: rgba(34, 211, 238, .3); }
 
-    /* ---------- Navigation ---------- */
-    .topnav { position: fixed; top: 14px; left: 0; right: 0; z-index: 20; }
-    .topnav .bar {
-      display: flex; align-items: center; justify-content: space-between; gap: 16px;
-      height: 56px; padding: 0 10px 0 18px;
-      background: rgba(10, 16, 32, .65); border: 1px solid var(--border);
-      border-radius: 999px; backdrop-filter: blur(14px) saturate(140%);
-      -webkit-backdrop-filter: blur(14px) saturate(140%);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
-    }
-    .brand { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--text); white-space: nowrap; display: flex; align-items: center; gap: 10px; }
-    .brand .logo {
-      width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
-      font-size: 13px; background: var(--grad); color: #060912; font-weight: 700;
-    }
-    .topnav nav { display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
-    .topnav nav::-webkit-scrollbar { display: none; }
-    .topnav nav a {
-      color: var(--muted); font-size: 14px; font-weight: 500; white-space: nowrap;
-      padding: 8px 13px; border-radius: 999px; transition: color .2s, background .2s;
-    }
-    .topnav nav a:hover { color: var(--text); background: var(--surface-hover); }
-    .topnav nav a.active { color: #060912; background: var(--text); }
-    @media (max-width: 760px) { .brand span:last-child { display: none; } }
-    @media (max-width: 560px) { .topnav { top: 8px; } .topnav .bar { padding: 0 6px 0 10px; } }
-
-    /* ---------- Hero ---------- */
-    .hero { position: relative; min-height: min(100vh, 860px); display: flex; align-items: center; padding: 120px 0 70px; }
-    #net { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: .9; }
-    .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; width: 100%; }
-    .hero-grid > *, .about > *, .two-col > *, .edu > *, .pub > *, .timeline > * { min-width: 0; }
-    @media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
-    .status {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 7px 16px 7px 12px; border-radius: 999px; font-size: 14px; font-weight: 500;
-      background: rgba(52, 211, 153, .08); color: #a7f3d0; border: 1px solid rgba(52, 211, 153, .25);
-    }
-    .pulse { width: 9px; height: 9px; border-radius: 50%; background: var(--green); position: relative; }
-    .pulse::after {
-      content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--green);
-      animation: ping 1.8s cubic-bezier(0, 0, .2, 1) infinite;
-    }
+    /* header */
+    header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 20px; margin-bottom: 28px; }
+    .status { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px; border-radius: 999px; font-size: 13px; background: rgba(52, 211, 153, .08); color: #a7f3d0; border: 1px solid rgba(52, 211, 153, .28); }
+    .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--green); position: relative; }
+    .pulse::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--green); animation: ping 1.8s cubic-bezier(0, 0, .2, 1) infinite; }
     @keyframes ping { 75%, 100% { transform: scale(2.6); opacity: 0; } }
-    .hero h1 {
-      font-family: var(--display); font-weight: 700; letter-spacing: -.03em;
-      font-size: clamp(48px, 9vw, 96px); line-height: .98; margin: 22px 0 18px;
-    }
-    .role { font-family: var(--mono); font-size: clamp(14px, 2.2vw, 17px); color: var(--muted); min-height: 1.6em; }
-    .role .typed { color: var(--cyan); }
-    .role .caret { display: inline-block; width: 9px; height: 1.1em; background: var(--cyan); vertical-align: -3px; margin-left: 3px; animation: blink 1s steps(1) infinite; }
+    h1 { font-family: var(--display); font-weight: 700; font-size: clamp(42px, 6vw, 64px); letter-spacing: -.03em; line-height: 1; margin: 16px 0 8px; }
+    .roles { color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 12px; font-weight: 600; font-size: 15px; border: 1px solid rgba(148, 163, 184, .3); color: var(--text); transition: transform .2s, border-color .2s; }
+    .btn:hover { color: var(--text); transform: translateY(-2px); border-color: rgba(34, 211, 238, .5); }
+    .btn.primary { background: var(--grad); color: #060912; border: none; }
+    .btn.primary:hover { color: #060912; }
+
+    /* window */
+    .win { border-radius: 18px; overflow: hidden; border: 1px solid rgba(148, 163, 184, .18); background: rgba(10, 16, 32, .82); box-shadow: 0 30px 80px rgba(0, 0, 0, .45); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    .titlebar { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+    .titlebar i { width: 12px; height: 12px; border-radius: 50%; display: block; }
+    .titlebar span { flex: 1; text-align: center; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+    .body { display: flex; flex-wrap: wrap; }
+    .explorer { flex: 1 1 220px; max-width: 100%; border-right: 1px solid var(--border); padding: 14px 10px; }
+    .label { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--muted); padding: 0 8px 10px; }
+    .folder { font-family: var(--mono); font-size: 13px; color: var(--soft); padding: 4px 8px; }
+    .files { display: flex; flex-direction: column; gap: 2px; }
+    .file { cursor: pointer; text-align: left; min-height: 36px; display: flex; align-items: center; gap: 10px; padding: 6px 8px 6px 22px; border: 0; border-radius: 8px; background: transparent; font-family: var(--mono); font-size: 13px; color: var(--soft); }
+    .file:hover { background: rgba(255, 255, 255, .05); }
+    .file.on { background: rgba(34, 211, 238, .10); color: #fff; }
+    .file b { width: 30px; font-size: 10px; font-weight: 500; }
+    .hint { margin: 18px 8px 0; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .editor { flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column; }
+    .tabs { display: flex; overflow-x: auto; border-bottom: 1px solid var(--border); background: rgba(6, 9, 18, .5); scrollbar-width: none; }
+    .tab { cursor: pointer; flex: none; min-height: 42px; padding: 0 18px; border: 0; border-right: 1px solid rgba(148, 163, 184, .12); border-top: 2px solid transparent; background: transparent; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+    .tab.on { border-top-color: var(--cyan); background: rgba(10, 16, 32, .9); color: #fff; }
+    .crumb { padding: 8px 18px; font-family: var(--mono); font-size: 12px; color: var(--muted); border-bottom: 1px solid rgba(148, 163, 184, .08); }
+    .code { padding: 14px 0 22px; font-family: var(--mono); font-size: 13.5px; line-height: 1.75; min-height: 520px; }
+    .ln { display: flex; }
+    .ln .n { flex: none; width: 52px; padding-right: 16px; text-align: right; color: #64748b; user-select: none; }
+    .ln .t { flex: 1; min-width: 0; white-space: pre-wrap; overflow-wrap: anywhere; padding-right: 18px; min-height: 1.75em; }
+    .ln a { color: inherit; text-decoration: underline; text-decoration-color: rgba(192, 132, 252, .5); text-underline-offset: 3px; }
+    @media (max-width: 560px) { .code { font-size: 12.5px; } .ln .n { width: 36px; padding-right: 10px; } }
+    .term { border-top: 1px solid var(--border); padding: 12px 18px 16px; font-family: var(--mono); font-size: 13px; background: rgba(6, 9, 18, .55); color: var(--soft); }
+    .term .p { color: var(--cyan); }
+    .term .ok { color: #6ee7b7; }
+    .caret { display: inline-block; width: 8px; height: 15px; background: var(--cyan); vertical-align: -2px; animation: blink 1s steps(1) infinite; }
     @keyframes blink { 50% { opacity: 0; } }
-    .hero p.lead { color: var(--muted); font-size: 18px; max-width: 560px; margin: 18px 0 0; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: 15px;
-      border: 1px solid var(--border-strong); color: var(--text); background: var(--surface);
-      transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
-    }
-    .btn:hover { color: var(--text); transform: translateY(-2px); background: var(--surface-hover); border-color: rgba(34, 211, 238, .5); }
-    .btn.primary { background: var(--grad); color: #060912; border: none; box-shadow: 0 8px 30px rgba(34, 211, 238, .25); }
-    .btn.primary:hover { color: #060912; box-shadow: 0 12px 40px rgba(129, 140, 248, .4); }
-    .socials { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; }
-    .socials a {
-      width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px;
-      color: var(--muted); border: 1px solid var(--border); background: var(--surface); font-size: 18px;
-      transition: color .2s, border-color .2s, transform .2s;
-    }
-    .socials a:hover { color: var(--cyan); border-color: rgba(34, 211, 238, .5); transform: translateY(-2px); }
-    .socials .loc { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 14px; padding: 0 6px; }
-    .socials .loc i { color: var(--cyan); }
+    .statusbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; padding: 6px 16px; font-family: var(--mono); font-size: 12px; color: #e0f2fe; background: linear-gradient(90deg, rgba(34, 211, 238, .35), rgba(139, 92, 246, .35)); }
 
-    /* code card */
-    .code {
-      position: relative; border-radius: var(--radius); overflow: hidden;
-      background: rgba(10, 16, 32, .75); border: 1px solid var(--border);
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      box-shadow: 0 30px 80px rgba(0, 0, 0, .45), 0 0 0 1px rgba(34, 211, 238, .05);
-    }
-    .code::before {
-      content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
-      background: linear-gradient(140deg, rgba(34, 211, 238, .55), transparent 40%, transparent 60%, rgba(192, 132, 252, .55));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor; mask-composite: exclude;
-    }
-    .code-head { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
-    .code-head i { width: 11px; height: 11px; border-radius: 50%; display: block; }
-    .code-head span { margin-left: 8px; font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
-    .code pre { margin: 0; padding: 18px 20px 22px; font-family: var(--mono); font-size: 13.5px; line-height: 1.75; color: #cbd5e1; overflow-x: auto; }
-    .k { color: #c084fc; } .s { color: #86efac; } .n { color: #67e8f9; } .c { color: var(--faint); font-style: italic; } .p { color: #fbbf24; }
+    footer { margin-top: 40px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-size: 14px; color: var(--muted); }
+    footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
 
-    /* ---------- Stats ---------- */
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: -10px; }
-    @media (max-width: 760px) { .stats { grid-template-columns: repeat(2, 1fr); } }
-    .stat { padding: 22px; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--border); }
-    .stat b { display: block; font-family: var(--display); font-size: 40px; line-height: 1; font-weight: 700; }
-    .stat span { display: block; margin-top: 8px; color: var(--muted); font-size: 14px; }
-
-    /* ---------- Sections ---------- */
-    section { padding: 96px 0 0; }
-    .sec-head { margin-bottom: 34px; }
-    .sec-label { font-family: var(--mono); font-size: 13px; color: var(--cyan); letter-spacing: .08em; }
-    .sec-head h2 {
-      font-family: var(--display); font-size: clamp(30px, 4.5vw, 42px); font-weight: 600;
-      letter-spacing: -.02em; line-height: 1.1; margin: 8px 0 0;
-    }
-    .card {
-      position: relative; background: var(--surface); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 24px 26px;
-      transition: background .25s, border-color .25s, transform .25s;
-      overflow-wrap: anywhere;
-    }
-    .card:hover { background: var(--surface-hover); border-color: var(--border-strong); }
-
-    /* about */
-    .about { display: grid; grid-template-columns: 1.4fr 1fr; gap: 22px; }
-    @media (max-width: 860px) { .about { grid-template-columns: 1fr; } }
-    .about p { margin: 0 0 14px; color: #cbd5e1; font-size: 17px; }
-    .about p:last-child { margin-bottom: 0; }
-    .focus h3 { margin: 0 0 14px; font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
-    .focus ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-    .focus li { display: flex; gap: 12px; align-items: flex-start; }
-    .focus li i { color: var(--cyan); width: 20px; margin-top: 5px; text-align: center; }
-
-    /* timeline */
-    .timeline { position: relative; padding-left: 34px; }
-    .timeline::before {
-      content: ""; position: absolute; left: 9px; top: 8px; bottom: 8px; width: 2px;
-      background: linear-gradient(var(--cyan), var(--violet) 70%, transparent);
-      opacity: .6; border-radius: 2px;
-    }
-    .tl-item { position: relative; }
-    .tl-item + .tl-item { margin-top: 18px; }
-    .tl-item::before {
-      content: ""; position: absolute; left: -31px; top: 28px; width: 14px; height: 14px; border-radius: 50%;
-      background: var(--bg); border: 2px solid var(--cyan); box-shadow: 0 0 0 4px rgba(34, 211, 238, .12), 0 0 18px rgba(34, 211, 238, .5);
-    }
-    .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 16px; flex-wrap: wrap; }
-    .entry-head h3 { margin: 0; font-family: var(--display); font-size: 21px; font-weight: 600; letter-spacing: -.01em; min-width: 0; }
-    .date {
-      font-family: var(--mono); font-size: 12.5px; color: var(--cyan); white-space: nowrap;
-      padding: 3px 10px; border-radius: 999px; background: rgba(34, 211, 238, .08); border: 1px solid rgba(34, 211, 238, .2);
-    }
-    .org { color: var(--text); font-weight: 500; margin-top: 6px; }
-    .loc { color: var(--muted); font-size: 14.5px; display: flex; align-items: center; gap: 7px; }
-    .loc i { font-size: 12px; color: var(--faint); }
-    .card ul.bullets { margin: 14px 0 0; padding-left: 0; list-style: none; color: #cbd5e1; }
-    .card ul.bullets li { position: relative; padding-left: 20px; margin: 6px 0; }
-    .card ul.bullets li::before { content: "▹"; position: absolute; left: 0; color: var(--cyan); }
-    .award {
-      display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; font-size: 13.5px; font-weight: 600;
-      color: #fde68a; padding: 5px 12px; border-radius: 999px; background: rgba(251, 191, 36, .08); border: 1px solid rgba(251, 191, 36, .25);
-    }
-
-    /* education */
-    .edu { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    @media (max-width: 900px) { .edu { grid-template-columns: 1fr; } }
-    .edu .card { display: flex; flex-direction: column; gap: 4px; }
-    .edu .icon {
-      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; margin-bottom: 12px;
-      background: rgba(129, 140, 248, .12); color: #a5b4fc; font-size: 18px; border: 1px solid rgba(129, 140, 248, .25);
-    }
-    .edu h3 { margin: 0; font-family: var(--display); font-size: 19px; font-weight: 600; line-height: 1.3; }
-    .edu .date { align-self: flex-start; margin-top: auto; }
-    .edu .meta { margin-bottom: 14px; }
-    .edu .current { border-color: rgba(34, 211, 238, .35); background: linear-gradient(160deg, rgba(34, 211, 238, .07), var(--surface) 60%); }
-
-    /* publication */
-    .pub { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: start; }
-    @media (max-width: 560px) { .pub { grid-template-columns: 1fr; } }
-    .pub .badge {
-      font-family: var(--mono); font-size: 13px; text-align: center; padding: 14px 16px; border-radius: 12px;
-      background: rgba(192, 132, 252, .1); border: 1px solid rgba(192, 132, 252, .3); color: #e9d5ff; line-height: 1.4;
-    }
-    .pub .badge b { display: block; font-family: var(--display); font-size: 22px; color: #fff; }
-    .pub .title { font-family: var(--display); font-size: 20px; font-weight: 600; line-height: 1.35; color: var(--text); display: inline-block; margin-bottom: 8px; }
-    .pub .title:hover { color: var(--cyan); }
-    .pub .title i { font-size: 13px; margin-left: 6px; color: var(--muted); }
-    .pub p { margin: 0; color: var(--muted); }
-
-    /* skills */
-    .skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-    @media (max-width: 400px) { .skills { grid-template-columns: 1fr; } }
-    .skills h3 { margin: 0 0 14px; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
-    .skills h3 i { color: var(--cyan); width: 18px; text-align: center; }
-    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
-    .chip {
-      font-family: var(--mono); font-size: 12.5px; padding: 5px 11px; border-radius: 8px;
-      background: rgba(148, 163, 184, .07); border: 1px solid var(--border); color: #cbd5e1;
-      transition: border-color .2s, color .2s;
-    }
-    .chip:hover { border-color: rgba(34, 211, 238, .5); color: #fff; }
-
-    /* lists (certifications, workshops) */
-    .two-col { display: grid; grid-template-columns: 1fr 1.6fr; gap: 22px; }
-    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
-    .list { list-style: none; margin: 0; padding: 0; }
-    .list li { display: grid; grid-template-columns: 150px 1fr; gap: 4px 16px; padding: 12px 0; border-bottom: 1px dashed var(--border); }
-    .list li:first-child { padding-top: 0; }
-    .list li:last-child { border-bottom: none; padding-bottom: 0; }
-    .list .when { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 3px; }
-    .list .what { color: #cbd5e1; }
-    @media (max-width: 560px) { .list li { grid-template-columns: 1fr; } }
-    .sub { font-family: var(--mono); font-size: 13px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin: 0 0 18px; display: flex; align-items: center; gap: 10px; }
-    .sub i { color: var(--cyan); }
-
-    /* languages */
-    .langs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    @media (max-width: 760px) { .langs { grid-template-columns: 1fr; } }
-    .langs strong { display: block; font-family: var(--display); font-size: 20px; margin-bottom: 4px; }
-    .langs .card span { color: var(--muted); font-size: 14.5px; }
-
-    /* contact */
-    .contact { text-align: center; padding: 56px 28px; overflow: hidden; }
-    .contact::before {
-      content: ""; position: absolute; inset: 0; pointer-events: none;
-      background: radial-gradient(600px 220px at 50% 0%, rgba(34, 211, 238, .14), transparent 70%),
-                  radial-gradient(600px 220px at 50% 100%, rgba(139, 92, 246, .14), transparent 70%);
-    }
-    .contact h2 { position: relative; font-family: var(--display); font-size: clamp(28px, 5vw, 44px); letter-spacing: -.02em; margin: 10px 0 12px; line-height: 1.15; }
-    .contact p { position: relative; color: var(--muted); max-width: 560px; margin: 0 auto; font-size: 17px; }
-    .contact .actions { justify-content: center; position: relative; }
-
-    footer { margin: 64px 0 36px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--faint); font-size: 14px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-    footer a { color: var(--muted); }
-
-    /* reveal on scroll */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
-    .no-js .reveal { opacity: 1; transform: none; }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .pulse::after, .role .caret { animation: none; }
-      .btn, .socials a, .card { transition: none; }
-    }
-
-    @media print {
-      :root { --text: #111; --muted: #444; --faint: #666; --cyan: #1f3b66; --border: #ccc; --surface: #fff; }
-      body { background: #fff; color: #111; font-size: 12pt; }
-      body::before, body::after, #net, .topnav, .actions, .code, .socials, .contact { display: none !important; }
-      .hero { min-height: 0; padding: 0 0 20px; }
-      .grad-text { color: #1f3b66; background: none; }
-      .reveal { opacity: 1; transform: none; }
-      section { padding-top: 28px; break-inside: avoid-page; }
-      .card { break-inside: avoid; }
-      strong { color: #111; }
-    }
+    @media (prefers-reduced-motion: reduce) { .pulse::after, .caret { animation: none; } .btn { transition: none; } }
   </style>
 </head>
-<body class="no-js">
+<body>
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="status"><span class="pulse"></span>Open to an industrial bachelor thesis</div>
+        <h1>Shreya <span class="grad-text">Jain</span></h1>
+        <div class="roles">Computational Linguistics Student · Software Developer · Research Intern</div>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="assets/ShreyaJain_CV.pdf" target="_blank" rel="noopener">Download CV</a>
+        <a class="btn" href="mailto:shreya.jain@student.uni-tuebingen.de">Get in touch</a>
+      </div>
+    </header>
 
-  <header class="topnav">
-    <div class="wrap">
-      <div class="bar">
-        <a class="brand" href="#top" aria-label="Shreya Jain — back to top"><span class="logo">SJ</span><span>Shreya Jain</span></a>
-        <nav aria-label="Sections">
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#education">Education</a>
-          <a href="#publication">Publication</a>
-          <a href="#skills">Skills</a>
-          <a href="#learning">Learning</a>
-          <a href="#contact">Contact</a>
+    <main class="win">
+      <div class="titlebar"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#34d399"></i><span>shreya-jain — portfolio</span></div>
+      <div class="body">
+        <nav class="explorer" aria-label="CV sections">
+          <div class="label">EXPLORER</div>
+          <div class="folder">▾ shreya-jain/</div>
+          <div class="files" id="files"></div>
+          <div class="hint">Click a file to open it. Each section of the CV is a file.</div>
         </nav>
-      </div>
-    </div>
-  </header>
-
-  <!-- ===================== HERO ===================== -->
-  <div class="hero" id="top">
-    <canvas id="net" aria-hidden="true"></canvas>
-    <div class="wrap">
-      <div class="hero-grid">
-        <div>
-          <div class="status"><span class="pulse"></span>Open to an industrial bachelor thesis</div>
-          <h1>Shreya<br><span class="grad-text">Jain</span></h1>
-          <div class="role">&gt; <span class="typed" data-words="Computational Linguistics Student|Software Developer|Research Intern">Computational Linguistics Student</span><span class="caret"></span></div>
-          <p class="lead">
-            Building at the intersection of <strong>language technology</strong>, <strong>data</strong> and
-            <strong>software engineering</strong> — at the University of Tübingen.
-          </p>
-          <div class="actions">
-            <a class="btn primary" href="assets/ShreyaJain_CV.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-arrow-down"></i>Download CV</a>
-            <a class="btn" href="mailto:shreya.jain@student.uni-tuebingen.de"><i class="fa-solid fa-paper-plane"></i>Get in touch</a>
+        <section class="editor" aria-live="polite">
+          <div class="tabs" id="tabs"></div>
+          <div class="crumb" id="crumb"></div>
+          <div class="code" id="code"></div>
+          <div class="term">
+            <div><span class="p">~/shreya-jain</span> $ shreya --status</div>
+            <div class="ok">● open to an industrial bachelor thesis — language technology · data · software engineering</div>
+            <div><span class="p">~/shreya-jain</span> $ <span class="caret"></span></div>
           </div>
-          <div class="socials">
-            <a href="https://linkedin.com/in/shreyaj661" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <a href="https://github.com/shreyaj661" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://scholar.google.com/citations?user=VizD9MUAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar"><i class="fa-solid fa-graduation-cap"></i></a>
-            <a href="mailto:shreya.jain@student.uni-tuebingen.de" aria-label="Email" title="shreya.jain@student.uni-tuebingen.de"><i class="fa-solid fa-envelope"></i></a>
-            <span class="loc"><i class="fa-solid fa-location-dot"></i>Tübingen, Germany</span>
-          </div>
-        </div>
-
-        <div class="code reveal" aria-label="Profile summary">
-          <div class="code-head"><i style="background:#f87171"></i><i style="background:#fbbf24"></i><i style="background:#34d399"></i><span>profile.py</span></div>
-<pre><span class="k">from</span> cv <span class="k">import</span> <span class="n">Profile</span>
-
-<span class="n">shreya</span> = <span class="n">Profile</span>(
-    study=<span class="s">"B.A. Computational Linguistics"</span>,
-    industry=<span class="s">"~3 yrs software development"</span>,
-    research=[<span class="s">"MPI Biol. Cybernetics"</span>,
-              <span class="s">"Univ. of Queensland"</span>],
-    stack=[<span class="s">"Python"</span>, <span class="s">"PyTorch"</span>, <span class="s">"spaCy"</span>,
-           <span class="s">"SQL"</span>, <span class="s">"Java"</span>, <span class="s">"C#"</span>],
-    published=<span class="s">"ISMRM 2024"</span>,
-)
-
-<span class="n">shreya</span>.<span class="p">seeking</span>(<span class="s">"industrial bachelor thesis"</span>)
-<span class="c"># → let's talk</span></pre>
-        </div>
+        </section>
       </div>
-    </div>
-  </div>
-
-  <main class="wrap">
-
-    <!-- stats -->
-    <div class="stats reveal">
-      <div class="stat"><b class="grad-text">~3</b><span>years industry software development</span></div>
-      <div class="stat"><b class="grad-text">2</b><span>research internships (DE &amp; AU)</span></div>
-      <div class="stat"><b class="grad-text">1</b><span>peer-reviewed abstract · ISMRM 2024</span></div>
-      <div class="stat"><b class="grad-text">11</b><span>workshops &amp; trainings</span></div>
-    </div>
-
-    <!-- ===================== ABOUT ===================== -->
-    <section id="about">
-      <div class="sec-head reveal"><div class="sec-label">01 // ABOUT</div><h2>Language meets code.</h2></div>
-      <div class="about">
-        <div class="card reveal">
-          <p>
-            Computational Linguistics student at the University of Tübingen with about three years of
-            professional software development experience (Publicis Sapient, Grid Infocom) and research
-            internships at the Max Planck Institute for Biological Cybernetics and the University of Queensland.
-            Experienced in Python (spaCy, NLTK, scikit-learn, PyTorch, TensorFlow), R, Java and C#,
-            with a peer-reviewed conference abstract (ISMRM 2024).
-          </p>
-          <p>
-            I am looking for an <strong>industrial bachelor thesis</strong> that combines language technology,
-            data and software engineering.
-          </p>
-        </div>
-        <div class="card focus reveal">
-          <h3>What I bring</h3>
-          <ul>
-            <li><i class="fa-solid fa-language"></i><span>NLP with spaCy, NLTK, scikit-learn, PyTorch &amp; TensorFlow</span></li>
-            <li><i class="fa-solid fa-code-branch"></i><span>Production software, CI/CD (Azure DevOps) &amp; SQL</span></li>
-            <li><i class="fa-solid fa-flask"></i><span>Reproducible research pipelines &amp; scientific programming</span></li>
-            <li><i class="fa-solid fa-robot"></i><span>Automation &amp; RPA (UiPath certified)</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== EXPERIENCE ===================== -->
-    <section id="experience">
-      <div class="sec-head reveal"><div class="sec-label">02 // RESEARCH EXPERIENCE</div><h2>Research</h2></div>
-      <div class="timeline">
-        <article class="card tl-item reveal">
-          <div class="entry-head"><h3>Research Intern</h3><span class="date">Aug 2025 – Nov 2025</span></div>
-          <div class="org">Max Planck Institute for Biological Cybernetics</div>
-          <div class="loc"><i class="fa-solid fa-location-dot"></i>Tübingen, Germany</div>
-          <ul class="bullets">
-            <li>Neuroimaging research and scientific programming for fMRI data analysis.</li>
-            <li>Contributed to reproducible pipelines (motion correction, despiking, masking, reporting).</li>
-          </ul>
-        </article>
-        <article class="card tl-item reveal">
-          <div class="entry-head"><h3>Research Intern</h3><span class="date">Mar 2023 – Dec 2023</span></div>
-          <div class="org">Queensland Brain Institute (QBI) &amp; Centre for Advanced Imaging (CAI), The University of Queensland</div>
-          <div class="loc"><i class="fa-solid fa-location-dot"></i>Brisbane, Australia</div>
-          <ul class="bullets">
-            <li>Evaluated a Dynamic Susceptibility Contrast (DSC)-perfusion toolbox for mapping mouse brain perfusion; results presented at ISMRM 2024 (see <a href="#publication">Publication</a>).</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="sec-head reveal" id="industry" style="margin-top:64px"><div class="sec-label">03 // INDUSTRY EXPERIENCE</div><h2>Industry</h2></div>
-      <div class="timeline">
-        <article class="card tl-item reveal">
-          <div class="entry-head"><h3>Associate Technology Level 2 (Software Developer)</h3><span class="date">Sep 2019 – Mar 2022</span></div>
-          <div class="org">Publicis Sapient</div>
-          <div class="loc"><i class="fa-solid fa-location-dot"></i>Gurugram, India</div>
-          <ul class="bullets">
-            <li>Software development and automation in cross-functional teams.</li>
-            <li>Worked with CI/CD pipelines (Azure DevOps) and SQL-backed applications.</li>
-          </ul>
-          <div class="award"><i class="fa-solid fa-award"></i>Star of the Month (2021)</div>
-        </article>
-        <article class="card tl-item reveal">
-          <div class="entry-head"><h3>Technical Consultant (Software Developer)</h3><span class="date">Sep 2018 – Sep 2019</span></div>
-          <div class="org">Grid Infocom</div>
-          <div class="loc"><i class="fa-solid fa-location-dot"></i>Gurugram, India</div>
-          <ul class="bullets">
-            <li>Developed RPA / automation solutions and supported production deployments.</li>
-          </ul>
-        </article>
-        <article class="card tl-item reveal">
-          <div class="entry-head"><h3>Technical Trainer</h3><span class="date">Jul 2017 – Apr 2018</span></div>
-          <div class="org">National Institute of Information Technology (NIIT)</div>
-          <div class="loc"><i class="fa-solid fa-location-dot"></i>New Delhi, India</div>
-          <ul class="bullets">
-            <li>Trained students in programming fundamentals (Java, C++), databases and web basics.</li>
-          </ul>
-          <div class="award"><i class="fa-solid fa-award"></i>Trainer of the Month (2018)</div>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================== EDUCATION ===================== -->
-    <section id="education">
-      <div class="sec-head reveal"><div class="sec-label">04 // EDUCATION</div><h2>Education</h2></div>
-      <div class="edu">
-        <article class="card current reveal">
-          <div class="icon"><i class="fa-solid fa-language"></i></div>
-          <h3>B.A. Computational Linguistics</h3>
-          <div class="org">University of Tübingen</div>
-          <div class="loc meta">Tübingen, Germany · currently in 5th semester</div>
-          <span class="date">Oct 2024 – Present</span>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><i class="fa-solid fa-laptop-code"></i></div>
-          <h3>Post Graduate Diploma, Software Engineering</h3>
-          <div class="org">National Institute of Information Technology (NIIT)</div>
-          <div class="loc meta">New Delhi, India · GPA 9/10</div>
-          <span class="date">Oct 2015 – Jun 2017</span>
-        </article>
-        <article class="card reveal">
-          <div class="icon"><i class="fa-solid fa-microchip"></i></div>
-          <h3>B.Sc. Computer Science</h3>
-          <div class="org">Sunrise University</div>
-          <div class="loc meta">Rajasthan, India</div>
-          <span class="date">Jul 2012 – May 2015</span>
-        </article>
-      </div>
-    </section>
-
-    <!-- ===================== PUBLICATION ===================== -->
-    <section id="publication">
-      <div class="sec-head reveal"><div class="sec-label">05 // PUBLICATION</div><h2>Publication</h2></div>
-      <article class="card pub reveal">
-        <div class="badge"><b>ISMRM</b>2024 · Singapore</div>
-        <div>
-          <a class="title" href="https://archive.ismrm.org/2024/3203.html" target="_blank" rel="noopener">Testing the utility of Dynamic Susceptibility Contrast (DSC)-Perfusion toolbox for mapping the characteristics of mouse brain perfusion<i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-          <p><strong>Shreya Jain</strong> and Nyoman Kurniawan.
-          <em>International Society for Magnetic Resonance in Medicine (ISMRM) 2024</em>, Singapore.</p>
-        </div>
-      </article>
-    </section>
-
-    <!-- ===================== SKILLS ===================== -->
-    <section id="skills">
-      <div class="sec-head reveal"><div class="sec-label">06 // TECHNICAL SKILLS</div><h2>Tech stack</h2></div>
-      <div class="skills">
-        <div class="card reveal"><h3><i class="fa-solid fa-terminal"></i>Programming</h3><div class="chips">
-          <span class="chip">Python</span><span class="chip">R</span><span class="chip">Java</span><span class="chip">C#</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">MATLAB</span><span class="chip">Bash</span><span class="chip">.NET (basic)</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-brain"></i>NLP &amp; ML</h3><div class="chips">
-          <span class="chip">spaCy</span><span class="chip">NLTK</span><span class="chip">scikit-learn</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-chart-line"></i>Data Science</h3><div class="chips">
-          <span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">SciPy</span><span class="chip">Matplotlib</span><span class="chip">seaborn</span><span class="chip">Jupyter</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-database"></i>Data &amp; Databases</h3><div class="chips">
-          <span class="chip">SQL (MS-SQL Server, Oracle 11g)</span><span class="chip">JSON</span><span class="chip">YAML</span><span class="chip">XML</span><span class="chip">Regex</span><span class="chip">Power BI</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-code-branch"></i>Tools &amp; DevOps</h3><div class="chips">
-          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Tortoise-SVN</span><span class="chip">Azure DevOps (CI/CD)</span><span class="chip">VS Code</span><span class="chip">PyCharm</span><span class="chip">IntelliJ IDEA</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-robot"></i>Automation &amp; AI</h3><div class="chips">
-          <span class="chip">UiPath (RPA)</span><span class="chip">ABBYY FlexiCapture 12</span><span class="chip">Dialogflow</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-circle-nodes"></i>Imaging</h3><div class="chips">
-          <span class="chip">FSLeyes</span><span class="chip">ITK-SNAP</span><span class="chip">AFNI</span><span class="chip">MIPAV</span><span class="chip">DeepLabCut</span>
-        </div></div>
-        <div class="card reveal"><h3><i class="fa-solid fa-globe"></i>Web &amp; Other</h3><div class="chips">
-          <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span><span class="chip">jQuery</span><span class="chip">Bootstrap 4</span><span class="chip">LaTeX</span><span class="chip">Markdown</span><span class="chip">Linux/Unix</span><span class="chip">Windows</span>
-        </div></div>
-      </div>
-    </section>
-
-    <!-- ===================== CERTIFICATIONS + WORKSHOPS ===================== -->
-    <section id="learning">
-      <div class="sec-head reveal"><div class="sec-label">07 // CERTIFICATIONS &amp; WORKSHOPS</div><h2>Always learning</h2></div>
-      <div class="two-col">
-        <div class="card reveal" id="certifications">
-          <div class="sub"><i class="fa-solid fa-certificate"></i>Certifications</div>
-          <ul class="list">
-            <li><span class="when">Nov 2018</span><span class="what"><strong>RPA Developer Advanced Certificate</strong>, UiPath</span></li>
-            <li><span class="when">Aug 2017</span><span class="what"><strong>Oracle Database 11g: SQL Fundamentals</strong>, Oracle Workforce Development Program</span></li>
-          </ul>
-        </div>
-        <div class="card reveal" id="workshops">
-          <div class="sub"><i class="fa-solid fa-chalkboard-user"></i>Workshops</div>
-          <ul class="list">
-            <li><span class="when">Feb – Apr 2026</span><span class="what"><strong>The Ethics of Artificial Intelligence (AI)</strong>, University of Tübingen</span></li>
-            <li><span class="when">Dec 2025</span><span class="what"><strong>Understanding and Using Generative AI</strong>, University of Tübingen</span></li>
-            <li><span class="when">Dec 2025</span><span class="what"><strong>Literature Search</strong>, University of Tübingen</span></li>
-            <li><span class="when">Dec 2025</span><span class="what"><strong>Zotero</strong>, University of Tübingen</span></li>
-            <li><span class="when">Nov 2025</span><span class="what"><strong>Research Training</strong>, University of Tübingen</span></li>
-            <li><span class="when">May 2025</span><span class="what"><strong>LaTeX</strong>, University of Tübingen</span></li>
-            <li><span class="when">May 2025</span><span class="what"><strong>Regex</strong>, University of Tübingen</span></li>
-            <li><span class="when">May 2025</span><span class="what"><strong>Citation Management with Zotero</strong>, University of Tübingen</span></li>
-            <li><span class="when">Apr 2025</span><span class="what"><strong>R</strong>, University of Tübingen</span></li>
-            <li><span class="when">Jan 2020</span><span class="what"><strong>UiPath Hackathon</strong>, Pune, India</span></li>
-            <li><span class="when">Feb 2017</span><span class="what"><strong>Android</strong> Workshop, IIT, New Delhi, India</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== LANGUAGES ===================== -->
-    <section id="languages">
-      <div class="sec-head reveal"><div class="sec-label">08 // LANGUAGES</div><h2>Languages</h2></div>
-      <div class="langs">
-        <div class="card reveal"><strong>Hindi</strong><span>Native</span></div>
-        <div class="card reveal"><strong>English</strong><span>Professional proficiency</span></div>
-        <div class="card reveal"><strong>German</strong><span>A1 (DaF certificate, University of Tübingen)</span></div>
-      </div>
-    </section>
-
-    <!-- ===================== CONTACT ===================== -->
-    <section id="contact">
-      <div class="card contact reveal">
-        <div class="sec-label">09 // CONTACT</div>
-        <h2>Let's build something with <span class="grad-text">language &amp; data</span>.</h2>
-        <p>I am looking for an industrial bachelor thesis that combines language technology, data and software engineering.</p>
-        <div class="actions">
-          <a class="btn primary" href="mailto:shreya.jain@student.uni-tuebingen.de"><i class="fa-solid fa-paper-plane"></i>shreya.jain@student.uni-tuebingen.de</a>
-          <a class="btn" href="https://linkedin.com/in/shreyaj661" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin-in"></i>LinkedIn</a>
-        </div>
-      </div>
-    </section>
+      <div class="statusbar"><span>⎇ main · ● available · Tübingen, DE</span><span id="sb"></span></div>
+    </main>
 
     <footer>
       <span>© <span id="year">2026</span> Shreya Jain</span>
-      <span><a href="assets/ShreyaJain_CV.pdf" target="_blank" rel="noopener">CV (PDF)</a> · <a href="https://github.com/shreyaj661" target="_blank" rel="noopener">GitHub</a> · <a href="#top">Back to top ↑</a></span>
+      <nav aria-label="Links">
+        <a href="https://linkedin.com/in/shreyaj661" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/shreyaj661" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=VizD9MUAAAAJ" target="_blank" rel="noopener">Google Scholar</a>
+      </nav>
     </footer>
-  </main>
+  </div>
 
   <script>
-    document.body.classList.remove('no-js');
     document.getElementById('year').textContent = new Date().getFullYear();
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    /* reveal on scroll */
-    const els = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window && !reduce) {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-      els.forEach(el => io.observe(el));
-    } else { els.forEach(el => el.classList.add('in')); }
+    /* ---------- CV content as "files" ---------- */
+    const H = '#22d3ee', K = '#c084fc', Sg = '#86efac', P = '#94a3b8', T = '#cbd5e1', C = '#7c8aa0', G = '#6ee7b7', N = '#fbbf24', W = '#ffffff';
+    // L(text, colour, text, colour, ...) ; a third element {href} makes that piece a link
+    const L = (...a) => { const out = []; for (let i = 0; i < a.length; i += 2) out.push(typeof a[i] === 'object' ? a[i] : { t: a[i], c: a[i + 1] }); return out; };
+    const link = (t, c, href) => ({ t, c, href });
+    const kv = (ind, k, v) => L(ind + k, K, ': ', P, v, Sg);
+    const key = (ind, k) => L(ind + k, K, ':', P);
+    const item = (ind, v) => L(ind + '- ', P, v, Sg);
+    const jk = (ind, k, v, last) => L(ind + '"' + k + '"', K, ': ', P, '"' + v + '"', Sg, last ? '' : ',', P);
+    const arr = (k, xs) => L(k, K, ': ', P, '[', P, xs.join(', '), Sg, ']', P);
+    const ws = (when, what, where) => L('- ', P, when + '  ', N, what, W, ' — ' + where, T);
 
-    /* active nav link */
-    const links = [...document.querySelectorAll('.topnav nav a')];
-    const secs = links.map(a => document.querySelector(a.getAttribute('href')));
-    const setActive = () => {
-      const y = window.scrollY + 140;
-      let idx = -1;
-      secs.forEach((s, i) => { if (s && s.offsetTop <= y) idx = i; });
-      if (window.innerHeight + window.scrollY >= document.body.scrollHeight - 4) idx = links.length - 1;
-      links.forEach((a, i) => a.classList.toggle('active', i === idx));
+    const FILES = {
+      'README.md': { badge: 'MD', col: H, lang: 'Markdown', lines: [
+        L('# Shreya Jain', H), L(),
+        L('Computational Linguistics Student · Software Developer · Research Intern', W), L(),
+        L('> Open to an industrial bachelor thesis that combines', G),
+        L('> language technology, data and software engineering.', G), L(),
+        L('## About', H),
+        L('Computational Linguistics student at the University of Tübingen with', T),
+        L('about three years of professional software development experience', T),
+        L('(Publicis Sapient, Grid Infocom) and research internships at the', T),
+        L('Max Planck Institute for Biological Cybernetics and the University of', T),
+        L('Queensland. Experienced in Python (spaCy, NLTK, scikit-learn, PyTorch,', T),
+        L('TensorFlow), R, Java and C#, with a peer-reviewed conference abstract', T),
+        L('(ISMRM 2024).', T), L(),
+        L('## Links', H),
+        [ {t:'- ',c:P}, link('[Download CV (PDF)]', K, 'assets/ShreyaJain_CV.pdf'), {t:'(assets/ShreyaJain_CV.pdf)',c:C} ],
+        [ {t:'- ',c:P}, link('[LinkedIn]', K, 'https://linkedin.com/in/shreyaj661'), {t:'(linkedin.com/in/shreyaj661)',c:C} ],
+        [ {t:'- ',c:P}, link('[GitHub]', K, 'https://github.com/shreyaj661'), {t:'(github.com/shreyaj661)',c:C} ],
+        [ {t:'- ',c:P}, link('[Google Scholar]', K, 'https://scholar.google.com/citations?user=VizD9MUAAAAJ'), {t:'(scholar.google.com)',c:C} ]
+      ]},
+      'experience.yaml': { badge: 'YML', col: K, lang: 'YAML', lines: [
+        L('# research', C), key('', 'research'),
+        L('  - ', P, 'role', K, ': ', P, 'Research Intern', Sg),
+        kv('    ', 'org', 'Max Planck Institute for Biological Cybernetics'),
+        kv('    ', 'where', 'Tübingen, Germany'), kv('    ', 'when', 'Aug 2025 – Nov 2025'),
+        key('    ', 'did'),
+        item('      ', 'Neuroimaging research and scientific programming for fMRI data analysis.'),
+        item('      ', 'Contributed to reproducible pipelines (motion correction, despiking, masking, reporting).'),
+        L('  - ', P, 'role', K, ': ', P, 'Research Intern', Sg),
+        kv('    ', 'org', 'Queensland Brain Institute (QBI) & Centre for Advanced Imaging (CAI), The University of Queensland'),
+        kv('    ', 'where', 'Brisbane, Australia'), kv('    ', 'when', 'Mar 2023 – Dec 2023'),
+        key('    ', 'did'),
+        item('      ', 'Evaluated a Dynamic Susceptibility Contrast (DSC)-perfusion toolbox for mapping mouse brain perfusion; results presented at ISMRM 2024.'),
+        L(), L('# industry', C), key('', 'industry'),
+        L('  - ', P, 'role', K, ': ', P, 'Associate Technology Level 2 (Software Developer)', Sg),
+        kv('    ', 'org', 'Publicis Sapient'), kv('    ', 'where', 'Gurugram, India'), kv('    ', 'when', 'Sep 2019 – Mar 2022'),
+        key('    ', 'did'),
+        item('      ', 'Software development and automation in cross-functional teams.'),
+        item('      ', 'Worked with CI/CD pipelines (Azure DevOps) and SQL-backed applications.'),
+        L('    award', K, ': ', P, 'Star of the Month (2021)', N),
+        L('  - ', P, 'role', K, ': ', P, 'Technical Consultant (Software Developer)', Sg),
+        kv('    ', 'org', 'Grid Infocom'), kv('    ', 'where', 'Gurugram, India'), kv('    ', 'when', 'Sep 2018 – Sep 2019'),
+        key('    ', 'did'),
+        item('      ', 'Developed RPA / automation solutions and supported production deployments.'),
+        L('  - ', P, 'role', K, ': ', P, 'Technical Trainer', Sg),
+        kv('    ', 'org', 'National Institute of Information Technology (NIIT)'), kv('    ', 'where', 'New Delhi, India'), kv('    ', 'when', 'Jul 2017 – Apr 2018'),
+        key('    ', 'did'),
+        item('      ', 'Trained students in programming fundamentals (Java, C++), databases and web basics.'),
+        L('    award', K, ': ', P, 'Trainer of the Month (2018)', N)
+      ]},
+      'education.json': { badge: '{ }', col: N, lang: 'JSON', lines: [
+        L('[', P), L('  {', P),
+        jk('    ', 'degree', 'B.A. Computational Linguistics'), jk('    ', 'school', 'University of Tübingen'),
+        jk('    ', 'where', 'Tübingen, Germany'), jk('    ', 'when', 'Oct 2024 – Present'), jk('    ', 'note', 'currently in 5th semester', true),
+        L('  },', P), L('  {', P),
+        jk('    ', 'degree', 'Post Graduate Diploma, Software Engineering'), jk('    ', 'school', 'National Institute of Information Technology (NIIT)'),
+        jk('    ', 'where', 'New Delhi, India'), jk('    ', 'when', 'Oct 2015 – Jun 2017'), jk('    ', 'gpa', '9/10', true),
+        L('  },', P), L('  {', P),
+        jk('    ', 'degree', 'B.Sc. Computer Science'), jk('    ', 'school', 'Sunrise University'),
+        jk('    ', 'where', 'Rajasthan, India'), jk('    ', 'when', 'Jul 2012 – May 2015', true),
+        L('  }', P), L(']', P)
+      ]},
+      'publication.bib': { badge: 'BIB', col: Sg, lang: 'BibTeX', lines: [
+        L('@inproceedings', K, '{', P, 'jain2024ismrm', N, ',', P),
+        L('  title     ', H, '= {', P, 'Testing the utility of Dynamic Susceptibility Contrast (DSC)-Perfusion toolbox for mapping the characteristics of mouse brain perfusion', Sg, '},', P),
+        L('  author    ', H, '= {', P, 'Shreya Jain and Nyoman Kurniawan', Sg, '},', P),
+        L('  booktitle ', H, '= {', P, 'International Society for Magnetic Resonance in Medicine (ISMRM)', Sg, '},', P),
+        L('  year      ', H, '= {', P, '2024', N, '},', P),
+        L('  address   ', H, '= {', P, 'Singapore', Sg, '},', P),
+        [ {t:'  url       ',c:H}, {t:'= {',c:P}, link('https://archive.ismrm.org/2024/3203.html', Sg, 'https://archive.ismrm.org/2024/3203.html'), {t:'}',c:P} ],
+        L('}', P)
+      ]},
+      'skills.yaml': { badge: 'YML', col: K, lang: 'YAML', lines: [
+        arr('programming', ['Python', 'R', 'Java', 'C#', 'C', 'C++', 'MATLAB', 'Bash', '.NET (basic)']),
+        arr('nlp_ml', ['spaCy', 'NLTK', 'scikit-learn', 'PyTorch', 'TensorFlow']),
+        arr('data_science', ['pandas', 'NumPy', 'SciPy', 'Matplotlib', 'seaborn', 'Jupyter']),
+        arr('data_databases', ['SQL (MS-SQL Server, Oracle 11g)', 'JSON', 'YAML', 'XML', 'Regex', 'Power BI']),
+        arr('tools_devops', ['Git', 'GitHub', 'Tortoise-SVN', 'Azure DevOps (CI/CD)', 'VS Code', 'PyCharm', 'IntelliJ IDEA']),
+        arr('automation_ai', ['UiPath (RPA)', 'ABBYY FlexiCapture 12', 'Dialogflow']),
+        arr('imaging', ['FSLeyes', 'ITK-SNAP', 'AFNI', 'MIPAV', 'DeepLabCut']),
+        arr('web_other', ['HTML5', 'CSS3', 'JavaScript', 'jQuery', 'Bootstrap 4', 'LaTeX', 'Markdown', 'Linux/Unix', 'Windows']),
+        L(), key('', 'languages'),
+        kv('  ', 'hindi', 'native'), kv('  ', 'english', 'professional proficiency'), kv('  ', 'german', 'A1 (DaF certificate, University of Tübingen)')
+      ]},
+      'learning.md': { badge: 'MD', col: H, lang: 'Markdown', lines: [
+        L('## Certifications', H),
+        ws('Nov 2018', 'RPA Developer Advanced Certificate', 'UiPath'),
+        ws('Aug 2017', 'Oracle Database 11g: SQL Fundamentals', 'Oracle Workforce Development Program'),
+        L(), L('## Workshops', H),
+        ws('Feb–Apr 2026', 'The Ethics of Artificial Intelligence (AI)', 'University of Tübingen'),
+        ws('Dec 2025', 'Understanding and Using Generative AI', 'University of Tübingen'),
+        ws('Dec 2025', 'Literature Search', 'University of Tübingen'),
+        ws('Dec 2025', 'Zotero', 'University of Tübingen'),
+        ws('Nov 2025', 'Research Training', 'University of Tübingen'),
+        ws('May 2025', 'LaTeX', 'University of Tübingen'),
+        ws('May 2025', 'Regex', 'University of Tübingen'),
+        ws('May 2025', 'Citation Management with Zotero', 'University of Tübingen'),
+        ws('Apr 2025', 'R', 'University of Tübingen'),
+        ws('Jan 2020', 'UiPath Hackathon', 'Pune, India'),
+        ws('Feb 2017', 'Android Workshop', 'IIT, New Delhi, India')
+      ]},
+      'contact.sh': { badge: '$_', col: '#f87171', lang: 'Shell', lines: [
+        L('#!/usr/bin/env bash', C), L('# say hello', C), L(),
+        [ {t:'email',c:K}, {t:'=',c:P}, link('"shreya.jain@student.uni-tuebingen.de"', Sg, 'mailto:shreya.jain@student.uni-tuebingen.de') ],
+        [ {t:'linkedin',c:K}, {t:'=',c:P}, link('"https://linkedin.com/in/shreyaj661"', Sg, 'https://linkedin.com/in/shreyaj661') ],
+        [ {t:'github',c:K}, {t:'=',c:P}, link('"https://github.com/shreyaj661"', Sg, 'https://github.com/shreyaj661') ],
+        [ {t:'scholar',c:K}, {t:'=',c:P}, link('"https://scholar.google.com/citations?user=VizD9MUAAAAJ"', Sg, 'https://scholar.google.com/citations?user=VizD9MUAAAAJ') ],
+        [ {t:'cv',c:K}, {t:'=',c:P}, link('"assets/ShreyaJain_CV.pdf"', Sg, 'assets/ShreyaJain_CV.pdf') ], L(),
+        L('open ', H, '"mailto:$email"', Sg)
+      ]}
     };
-    window.addEventListener('scroll', setActive, { passive: true }); setActive();
 
-    /* typing effect */
-    const typed = document.querySelector('.typed');
-    if (typed && !reduce) {
-      const words = typed.dataset.words.split('|');
-      let w = 0, c = words[0].length, del = true;
-      const tick = () => {
-        const word = words[w];
-        typed.textContent = word.slice(0, c);
-        let wait = del ? 35 : 70;
-        if (del) { c--; if (c < 0) { del = false; w = (w + 1) % words.length; c = 0; wait = 300; } }
-        else { c++; if (c > words[w].length) { del = true; c = words[w].length; wait = 2200; } }
-        setTimeout(tick, wait);
-      };
-      setTimeout(tick, 2600);
+    /* ---------- rendering ---------- */
+    const state = { file: 'README.md', tabs: ['README.md', 'experience.yaml'] };
+    const $ = (id) => document.getElementById(id);
+    const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+    function open(name) {
+      if (!FILES[name]) return;
+      if (state.tabs.indexOf(name) < 0) state.tabs.push(name);
+      state.file = name;
+      if (history.replaceState) history.replaceState(null, '', '#' + name);
+      render();
     }
 
-    /* neural-network background in the hero */
-    const cv = document.getElementById('net');
+    function render() {
+      const f = FILES[state.file];
+      const files = $('files'); files.replaceChildren();
+      Object.keys(FILES).forEach(name => {
+        const b = el('button', 'file' + (name === state.file ? ' on' : ''));
+        b.type = 'button';
+        const badge = el('b', null, FILES[name].badge); badge.style.color = FILES[name].col;
+        b.append(badge, document.createTextNode(name));
+        b.setAttribute('aria-current', name === state.file ? 'page' : 'false');
+        b.addEventListener('click', () => open(name));
+        files.append(b);
+      });
+      const tabs = $('tabs'); tabs.replaceChildren();
+      state.tabs.forEach(name => {
+        const b = el('button', 'tab' + (name === state.file ? ' on' : ''), name);
+        b.type = 'button';
+        b.addEventListener('click', () => open(name));
+        tabs.append(b);
+      });
+      $('crumb').textContent = 'shreya-jain › ' + state.file;
+      const code = $('code'); code.replaceChildren();
+      f.lines.forEach((segs, i) => {
+        const row = el('div', 'ln');
+        const n = el('span', 'n', String(i + 1)); n.setAttribute('aria-hidden', 'true');
+        const t = el('span', 't');
+        if (!segs.length) t.textContent = ' ';
+        segs.forEach(sg => {
+          const s = sg.href ? el('a', null, sg.t) : el('span', null, sg.t);
+          s.style.color = sg.c;
+          if (sg.href) { s.href = sg.href; if (/^https?:/.test(sg.href)) { s.target = '_blank'; s.rel = 'noopener'; } }
+          t.append(s);
+        });
+        row.append(n, t); code.append(row);
+      });
+      $('sb').textContent = f.lang + ' · UTF-8 · Ln ' + f.lines.length;
+    }
+
+    const start = decodeURIComponent(location.hash.slice(1));
+    if (FILES[start]) { state.file = start; if (state.tabs.indexOf(start) < 0) state.tabs.push(start); }
+    render();
+
+    /* ---------- neural-network background ---------- */
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cv = $('net');
     if (cv && cv.getContext) {
       const ctx = cv.getContext('2d');
-      let W, H, pts = [], dpr = Math.min(window.devicePixelRatio || 1, 2), mouse = { x: -999, y: -999 };
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      let W = 0, Hh = 0, pts = [];
+      const mouse = { x: -999, y: -999 };
       const resize = () => {
-        W = cv.clientWidth; H = cv.clientHeight;
-        cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        const n = Math.round(Math.min(90, (W * H) / 16000));
-        pts = Array.from({ length: n }, () => ({
-          x: Math.random() * W, y: Math.random() * H,
-          vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
-          r: Math.random() * 1.6 + .6, h: Math.random()
-        }));
+        W = cv.clientWidth; Hh = cv.clientHeight;
+        cv.width = W * dpr; cv.height = Hh * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const n = Math.round(Math.min(110, (W * Hh) / 15000));
+        pts = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * Hh, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, r: Math.random() * 1.6 + .6, h: Math.random() }));
       };
       const draw = () => {
-        ctx.clearRect(0, 0, W, H);
+        ctx.clearRect(0, 0, W, Hh);
         const D = 130;
         for (let i = 0; i < pts.length; i++) {
           const p = pts[i];
           for (let j = i + 1; j < pts.length; j++) {
-            const q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.hypot(dx, dy);
-            if (d < D) {
-              ctx.strokeStyle = `rgba(129,140,248,${(1 - d / D) * .22})`;
-              ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
-            }
+            const q = pts[j], d = Math.hypot(p.x - q.x, p.y - q.y);
+            if (d < D) { ctx.strokeStyle = `rgba(129,140,248,${(1 - d / D) * .22})`; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke(); }
           }
           const md = Math.hypot(p.x - mouse.x, p.y - mouse.y);
-          if (md < 170) {
-            ctx.strokeStyle = `rgba(34,211,238,${(1 - md / 170) * .45})`;
-            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
-          }
+          if (md < 170) { ctx.strokeStyle = `rgba(34,211,238,${(1 - md / 170) * .45})`; ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke(); }
           ctx.fillStyle = p.h > .5 ? 'rgba(34,211,238,.85)' : 'rgba(192,132,252,.8)';
           ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
         }
       };
       const step = () => {
-        pts.forEach(p => {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0 || p.x > W) p.vx *= -1;
-          if (p.y < 0 || p.y > H) p.vy *= -1;
-        });
+        pts.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > Hh) p.vy *= -1; });
         draw();
         if (!document.hidden) requestAnimationFrame(step); else setTimeout(() => requestAnimationFrame(step), 500);
       };
       resize(); window.addEventListener('resize', resize);
-      cv.parentElement.addEventListener('mousemove', e => { const r = cv.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
-      cv.parentElement.addEventListener('mouseleave', () => { mouse.x = mouse.y = -999; });
+      window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+      document.addEventListener('mouseleave', () => { mouse.x = mouse.y = -999; });
       if (reduce) draw(); else requestAnimationFrame(step);
     }
   </script>
