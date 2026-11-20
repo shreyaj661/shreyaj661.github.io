@@ -4,3 +4,6 @@ CLAUDE.md
 
 # macOS
 .DS_Store
+
+# Private design backups (not published)
+backup/
