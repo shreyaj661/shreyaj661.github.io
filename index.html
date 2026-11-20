@@ -3,192 +3,381 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Shreya Jain — Resume</title>
-  <meta name="description" content="One‑page resume for Shreya Jain, Computational Linguistics student and Research Intern at MPI for Biological Cybernetics, Tübingen." />
+  <title>Shreya Jain — Computational Linguistics &amp; Software Development</title>
+  <meta name="description" content="Shreya Jain — Computational Linguistics student at the University of Tübingen with industry software development experience and research internships at the Max Planck Institute for Biological Cybernetics and the University of Queensland." />
+  <meta name="author" content="Shreya Jain" />
+  <meta property="og:title" content="Shreya Jain — Computational Linguistics &amp; Software Development" />
+  <meta property="og:description" content="Computational Linguistics student, software developer and research intern. Open to an industrial bachelor thesis." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shreyaj661.github.io/" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
-    :root { --bg:#0b0d10; --card:#12151a; --muted:#8b93a1; --text:#eaeef6; --accent:#62a8ff; --accent2:#7cf7d4; }
-    *{box-sizing:border-box}
-    html,body{margin:0;background:radial-gradient(1200px 800px at 10% -10%, rgba(124,247,212,.12), transparent 40%),radial-gradient(900px 700px at 110% 10%, rgba(98,168,255,.10), transparent 40%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    a{color:var(--accent);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .wrap{max-width:980px;margin:0 auto;padding:28px 20px 64px}
-    .hero{display:grid;grid-template-columns:100px 1fr auto;gap:18px;align-items:center;padding:18px;border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.06);box-shadow:0 10px 30px rgba(0,0,0,.25)}
-    .avatar{width:84px;height:84px;border-radius:20px;background:linear-gradient(180deg,#1d2430,#12151a);border:1px solid rgba(255,255,255,.06)}
-    .name{font-size:28px;font-weight:700}
-    .tagline{color:var(--muted);margin-top:6px}
-    .badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-    .badge{font-size:12px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:#0f1318}
-    .cta{display:flex;gap:10px;align-items:center}
-    .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0f1318;color:var(--text);font-weight:600}
-    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0b0d10;border:none}
-    section{margin-top:22px;padding:18px;background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:18px}
-    h2{margin:0 0 12px;font-size:18px;letter-spacing:.2px}
-    .grid{display:grid;gap:14px}
-    .grid.cols-2{grid-template-columns:1fr}
-    .grid.cols-3{grid-template-columns:1fr}
-    @media(min-width:720px){.grid.cols-2{grid-template-columns:1fr 1fr}.grid.cols-3{grid-template-columns:1fr 1fr 1fr}}
-    .xp{padding:14px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.05)}
-    .xp h3{margin:0;font-size:15px}
-    .meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:6px}
-    .xp ul{margin:8px 0 0 18px;color:#cfd6e6}
-    .two-col{display:grid;grid-template-columns:1fr;gap:14px}
-    @media(min-width:900px){.two-col{grid-template-columns:2fr 1fr}}
-    footer{margin-top:20px;color:var(--muted);font-size:13px;text-align:center}
+    /* ---------- Colours (same palette as the PDF CV) ---------- */
+    :root {
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --text: #222222;
+      --muted: #6b7280;
+      --accent: #1f3b66;      /* deep navy */
+      --accent-soft: #e8edf5;
+      --rule: #dfe4ec;
+      --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 4px 16px rgba(15, 23, 42, .05);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f141b;
+        --surface: #161c25;
+        --text: #e6e9ef;
+        --muted: #9aa3b2;
+        --accent: #8fb3e8;
+        --accent-soft: #1e2a3b;
+        --rule: #263142;
+        --shadow: none;
+      }
+    }
+
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; }
+    html, body { overflow-x: hidden; }
+    .contacts a, .org, .card { overflow-wrap: anywhere; }
+    .entry-head h3 { min-width: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+    /* ---------- Top navigation ---------- */
+    .topnav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .topnav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 16px; }
+    .brand { font-weight: 700; letter-spacing: .04em; color: var(--accent); white-space: nowrap; }
+    .topnav nav { display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; }
+    .topnav nav::-webkit-scrollbar { display: none; }
+    .topnav nav a { color: var(--muted); font-size: 15px; white-space: nowrap; }
+    .topnav nav a:hover { color: var(--accent); text-decoration: none; }
+    @media (max-width: 640px) { .brand { display: none; } }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 56px 0 36px; border-bottom: 3px solid var(--accent); margin-bottom: 8px; }
+    .hero h1 {
+      margin: 0; font-size: clamp(36px, 7vw, 54px); line-height: 1.1;
+      font-weight: 700; letter-spacing: .03em; color: var(--accent); text-transform: uppercase;
+    }
+    .tagline { margin: 8px 0 0; font-size: 20px; color: var(--muted); }
+    .status {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+      padding: 6px 14px; border-radius: 999px; font-size: 15px; font-weight: 600;
+      background: var(--accent-soft); color: var(--accent);
+    }
+    .status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #22a06b; }
+    .contacts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin-top: 22px; font-size: 16px; }
+    .contacts span, .contacts a { display: inline-flex; align-items: center; gap: 8px; }
+    .contacts i { color: var(--accent); width: 18px; text-align: center; }
+    .contacts span { color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 16px;
+      border: 1.5px solid var(--accent); color: var(--accent); background: transparent;
+    }
+    .btn:hover { text-decoration: none; background: var(--accent-soft); }
+    .btn.primary { background: var(--accent); color: var(--surface); }
+    .btn.primary:hover { opacity: .9; background: var(--accent); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 34px 0 6px; }
+    h2 {
+      margin: 0 0 18px; padding-bottom: 8px;
+      font-size: 15px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--accent); border-bottom: 1px solid var(--rule);
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+      padding: 20px 22px; box-shadow: var(--shadow);
+    }
+    .card + .card { margin-top: 14px; }
+    .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 6px 16px; flex-wrap: wrap; }
+    .entry-head h3 { margin: 0; font-size: 19px; font-weight: 600; }
+    .date { color: var(--muted); font-size: 15px; white-space: nowrap; }
+    .org { color: var(--accent); margin-top: 2px; }
+    .loc { color: var(--muted); font-size: 15px; }
+    .card ul { margin: 10px 0 0; padding-left: 20px; }
+    .card li { margin: 4px 0; }
+    .card li::marker { color: var(--accent); }
+    .award { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 15px; font-weight: 600; color: var(--accent); }
+
+    /* ---------- Skills ---------- */
+    .skills { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 720px) { .skills { grid-template-columns: 1fr 1fr; } }
+    .skills h3 { margin: 0 0 10px; font-size: 16px; font-weight: 600; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      font-size: 14px; padding: 3px 10px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--text);
+    }
+
+    /* ---------- Lists (workshops, certifications) ---------- */
+    .timeline { list-style: none; margin: 0; padding: 0; }
+    .timeline li { display: grid; grid-template-columns: 170px 1fr; gap: 4px 16px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+    .timeline li:last-child { border-bottom: none; }
+    .timeline .date { white-space: normal; }
+    @media (max-width: 560px) { .timeline li { grid-template-columns: 1fr; } }
+
+    .langs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+    .langs .card { margin: 0; }
+    .langs strong { display: block; font-size: 18px; }
+
+    footer { margin: 48px 0 32px; padding-top: 18px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 15px; text-align: center; }
+
+    @media print {
+      .topnav, .actions { display: none; }
+      body { background: #fff; }
+      .card { box-shadow: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Header -->
-    <header class="hero">
-      <div class="avatar" aria-hidden="true"></div>
-      <div>
-        <div class="name">Shreya Jain</div>
-        <div class="tagline">Computational Linguistics (B.A., Semester 3) · Research Intern, MPI for Biological Cybernetics · Tübingen, Germany</div>
-        <div class="badges" aria-label="Key skills">
-          <span class="badge">Python</span>
-          <span class="badge">MATLAB</span>
-          <span class="badge">Neuroimaging (FSL/AFNI)</span>
-          <span class="badge">HTML/CSS/JS</span>
-        </div>
-      </div>
-      <nav class="cta">
-        <a class="btn" href="mailto:shreya.jain@tuebingen.mpg.de">Email</a>
-        <a class="btn" href="https://github.com/shreyaj661" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/shreyaj661/" target="_blank" rel="noreferrer">LinkedIn</a>
-        <a class="btn primary" href="assets/resume.pdf" target="_blank" rel="noreferrer">Download PDF</a>
-      </nav>
-    </header>
 
-    <!-- Experience -->
-    <section>
-      <h2>Experience</h2>
-      <div class="grid">
-        <article class="xp">
-          <h3>Research Intern — Max Planck Institute for Biological Cybernetics</h3>
-          <div class="meta">Tübingen · Aug 2025 – Present</div>
-          <ul>
-            <li>Assist in neuroimaging research and scientific programming for fMRI data analysis.</li>
-            <li>Contribute to reproducible pipelines (motion correction, despiking, masking, reporting).</li>
-          </ul>
-        </article>
-        <article class="xp">
-          <h3>Research Intern — Queensland Brain Institute & Centre for Advanced Imaging</h3>
-          <div class="meta">The University of Queensland, Brisbane · Mar 2023 – Dec 2023</div>
-          <ul>
-            <li>Explored perfusion/contrast MRI workflows; prepared an abstract for ISMRM 2024 (Singapore).</li>
-          </ul>
-        </article>
-        <article class="xp">
-          <h3>Associate Technology Level 2 — Publicis Sapient</h3>
-          <div class="meta">Gurugram · Sep 2019 – Mar 2022</div>
-          <ul>
-            <li>Software development and automation; collaborated with cross‑functional teams.</li>
-            <li>Worked with CI/CD (Azure DevOps) and SQL‑backed applications.</li>
-          </ul>
-        </article>
-        <article class="xp">
-          <h3>Technical Consultant — Grid Infocom</h3>
-          <div class="meta">Gurugram · Sep 2018 – Sep 2019</div>
-          <ul>
-            <li>Developed RPA/automation solutions; supported production deployments.</li>
-          </ul>
-        </article>
-        <article class="xp">
-          <h3>Technical Trainer — National Institute of Information Technology (NIIT)</h3>
-          <div class="meta">New Delhi · Jul 2017 – Apr 2018</div>
-          <ul>
-            <li>Trained students in programming fundamentals (Java/C++), databases, and web basics.</li>
-          </ul>
-        </article>
+  <header class="topnav">
+    <div class="wrap">
+      <span class="brand">SHREYA JAIN</span>
+      <nav aria-label="Sections">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#industry">Industry</a>
+        <a href="#education">Education</a>
+        <a href="#publication">Publication</a>
+        <a href="#skills">Skills</a>
+        <a href="#workshops">Workshops</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- ===================== HERO ===================== -->
+    <div class="hero">
+      <h1>Shreya Jain</h1>
+      <p class="tagline">Computational Linguistics Student · Software Developer</p>
+      <div class="status">Open to an industrial bachelor thesis</div>
+
+      <div class="contacts">
+        <span><i class="fa-solid fa-location-dot"></i>Tübingen, Germany</span>
+        <a href="mailto:shreya.jain@student.uni-tuebingen.de"><i class="fa-solid fa-envelope"></i>shreya.jain@student.uni-tuebingen.de</a>
+        <a href="https://linkedin.com/in/shreyaj661" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i>LinkedIn</a>
+        <a href="https://github.com/shreyaj661" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i>GitHub</a>
+        <a href="https://scholar.google.com/citations?user=VizD9MUAAAAJ" target="_blank" rel="noopener"><i class="fa-solid fa-graduation-cap"></i>Google Scholar</a>
+      </div>
+
+      <div class="actions">
+        <a class="btn primary" href="assets/ShreyaJain_CV.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-arrow-down"></i>Download CV (PDF)</a>
+        <a class="btn" href="mailto:shreya.jain@student.uni-tuebingen.de"><i class="fa-solid fa-paper-plane"></i>Get in touch</a>
+      </div>
+    </div>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section id="about">
+      <h2>About</h2>
+      <p>
+        Computational Linguistics student at the University of Tübingen with about three years of
+        professional software development experience (Publicis Sapient, Grid Infocom) and research
+        internships at the Max Planck Institute for Biological Cybernetics and the University of Queensland.
+        Experienced in Python (spaCy, NLTK, scikit-learn, PyTorch, TensorFlow), R, Java and C#,
+        with a peer-reviewed conference abstract (ISMRM 2024).
+      </p>
+      <p>
+        I am looking for an <strong>industrial bachelor thesis</strong> that combines language technology,
+        data and software engineering.
+      </p>
+    </section>
+
+    <!-- ===================== RESEARCH ===================== -->
+    <section id="research">
+      <h2>Research Experience</h2>
+
+      <article class="card">
+        <div class="entry-head"><h3>Research Intern</h3><span class="date">Aug 2025 – Nov 2025</span></div>
+        <div class="org">Max Planck Institute for Biological Cybernetics</div>
+        <div class="loc">Tübingen, Germany</div>
+        <ul>
+          <li>Neuroimaging research and scientific programming for fMRI data analysis.</li>
+          <li>Contributed to reproducible pipelines (motion correction, despiking, masking, reporting).</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="entry-head"><h3>Research Intern</h3><span class="date">Mar 2023 – Dec 2023</span></div>
+        <div class="org">Queensland Brain Institute (QBI) &amp; Centre for Advanced Imaging (CAI), The University of Queensland</div>
+        <div class="loc">Brisbane, Australia</div>
+        <ul>
+          <li>Evaluated a Dynamic Susceptibility Contrast (DSC)-perfusion toolbox for mapping mouse brain perfusion; results presented at ISMRM 2024 (see <a href="#publication">Publication</a>).</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- ===================== INDUSTRY ===================== -->
+    <section id="industry">
+      <h2>Industry Experience</h2>
+
+      <article class="card">
+        <div class="entry-head"><h3>Associate Technology Level 2 (Software Developer)</h3><span class="date">Sep 2019 – Mar 2022</span></div>
+        <div class="org">Publicis Sapient</div>
+        <div class="loc">Gurugram, India</div>
+        <ul>
+          <li>Software development and automation in cross-functional teams.</li>
+          <li>Worked with CI/CD pipelines (Azure DevOps) and SQL-backed applications.</li>
+        </ul>
+        <div class="award"><i class="fa-solid fa-award"></i>Star of the Month (2021)</div>
+      </article>
+
+      <article class="card">
+        <div class="entry-head"><h3>Technical Consultant (Software Developer)</h3><span class="date">Sep 2018 – Sep 2019</span></div>
+        <div class="org">Grid Infocom</div>
+        <div class="loc">Gurugram, India</div>
+        <ul>
+          <li>Developed RPA / automation solutions and supported production deployments.</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="entry-head"><h3>Technical Trainer</h3><span class="date">Jul 2017 – Apr 2018</span></div>
+        <div class="org">National Institute of Information Technology (NIIT)</div>
+        <div class="loc">New Delhi, India</div>
+        <ul>
+          <li>Trained students in programming fundamentals (Java, C++), databases and web basics.</li>
+        </ul>
+        <div class="award"><i class="fa-solid fa-award"></i>Trainer of the Month (2018)</div>
+      </article>
+    </section>
+
+    <!-- ===================== EDUCATION ===================== -->
+    <section id="education">
+      <h2>Education</h2>
+
+      <article class="card">
+        <div class="entry-head"><h3>B.A. Computational Linguistics</h3><span class="date">Oct 2024 – Present</span></div>
+        <div class="org">University of Tübingen</div>
+        <div class="loc">Tübingen, Germany · currently in 5th semester</div>
+      </article>
+
+      <article class="card">
+        <div class="entry-head"><h3>Post Graduate Diploma, Software Engineering</h3><span class="date">Oct 2015 – Jun 2017</span></div>
+        <div class="org">National Institute of Information Technology (NIIT)</div>
+        <div class="loc">New Delhi, India · GPA 9/10</div>
+      </article>
+
+      <article class="card">
+        <div class="entry-head"><h3>B.Sc. Computer Science</h3><span class="date">Jul 2012 – May 2015</span></div>
+        <div class="org">Sunrise University</div>
+        <div class="loc">Rajasthan, India</div>
+      </article>
+    </section>
+
+    <!-- ===================== PUBLICATION ===================== -->
+    <section id="publication">
+      <h2>Publication</h2>
+      <article class="card">
+        <strong>Shreya Jain</strong> and Nyoman Kurniawan.
+        “<a href="https://archive.ismrm.org/2024/3203.html" target="_blank" rel="noopener">Testing the utility of Dynamic Susceptibility Contrast (DSC)-Perfusion toolbox for mapping the characteristics of mouse brain perfusion</a>.”
+        <em>International Society for Magnetic Resonance in Medicine (ISMRM) 2024</em>, Singapore.
+      </article>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section id="skills">
+      <h2>Technical Skills</h2>
+      <div class="skills">
+        <div class="card"><h3>Programming</h3><div class="chips">
+          <span class="chip">Python</span><span class="chip">R</span><span class="chip">Java</span><span class="chip">C#</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">MATLAB</span><span class="chip">Bash</span><span class="chip">.NET (basic)</span>
+        </div></div>
+        <div class="card"><h3>NLP &amp; ML</h3><div class="chips">
+          <span class="chip">spaCy</span><span class="chip">NLTK</span><span class="chip">scikit-learn</span><span class="chip">PyTorch</span><span class="chip">TensorFlow</span>
+        </div></div>
+        <div class="card"><h3>Data Science</h3><div class="chips">
+          <span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">SciPy</span><span class="chip">Matplotlib</span><span class="chip">seaborn</span><span class="chip">Jupyter</span>
+        </div></div>
+        <div class="card"><h3>Data &amp; Databases</h3><div class="chips">
+          <span class="chip">SQL (MS-SQL Server, Oracle 11g)</span><span class="chip">JSON</span><span class="chip">YAML</span><span class="chip">XML</span><span class="chip">Regex</span><span class="chip">Power BI</span>
+        </div></div>
+        <div class="card"><h3>Tools &amp; DevOps</h3><div class="chips">
+          <span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Tortoise-SVN</span><span class="chip">Azure DevOps (CI/CD)</span><span class="chip">VS Code</span><span class="chip">PyCharm</span><span class="chip">IntelliJ IDEA</span>
+        </div></div>
+        <div class="card"><h3>Automation &amp; AI</h3><div class="chips">
+          <span class="chip">UiPath (RPA)</span><span class="chip">ABBYY FlexiCapture 12</span><span class="chip">Dialogflow</span>
+        </div></div>
+        <div class="card"><h3>Imaging</h3><div class="chips">
+          <span class="chip">FSLeyes</span><span class="chip">ITK-SNAP</span><span class="chip">AFNI</span><span class="chip">MIPAV</span><span class="chip">DeepLabCut</span>
+        </div></div>
+        <div class="card"><h3>Web &amp; Other</h3><div class="chips">
+          <span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span><span class="chip">jQuery</span><span class="chip">Bootstrap 4</span><span class="chip">LaTeX</span><span class="chip">Markdown</span><span class="chip">Linux/Unix</span><span class="chip">Windows</span>
+        </div></div>
       </div>
     </section>
 
-    <!-- Education + Sidebar -->
-    <section class="two-col">
-      <div>
-        <h2>Education</h2>
-        <div class="grid">
-          <article class="xp">
-            <h3>B.A., Computational Linguistics — University of Tübingen</h3>
-            <div class="meta">Tübingen · Present (Semester 3)</div>
-          </article>
-          <article class="xp">
-            <h3>B.Sc., Computer Science — Sunrise University</h3>
-            <div class="meta">Rajasthan · Jul 2012 – May 2015 · 65%</div>
-          </article>
-          <article class="xp">
-            <h3>Senior Secondary (Science) — Kids Corner Happy Inter College</h3>
-            <div class="meta">Mar 2012 · 76%</div>
-          </article>
-        </div>
-
-        <h2 style="margin-top:16px">Publication</h2>
-        <article class="xp">
-          <h3>Jain, S.; Kurniawan, N. (2024)</h3>
-          <p>“Testing the utility of Dynamic Susceptibility Contrast (DSC)‑Perfusion toolbox for mapping the characteristics of mouse brain perfusion.” <em>ISMRM 2024</em>, Singapore.</p>
-        </article>
+    <!-- ===================== CERTIFICATIONS ===================== -->
+    <section id="certifications">
+      <h2>Certifications</h2>
+      <div class="card">
+        <ul class="timeline">
+          <li><span class="date">November 2018</span><span><strong>RPA Developer Advanced Certificate</strong>, UiPath</span></li>
+          <li><span class="date">August 2017</span><span><strong>Oracle Database 11g: SQL Fundamentals</strong>, Oracle Workforce Development Program</span></li>
+        </ul>
       </div>
+    </section>
 
-      <div>
-        <h2>Skills</h2>
-        <article class="xp">
-          <ul>
-            <li><strong>Programming:</strong> C, C++, C#, Java, .NET (basic), Python, R, MATLAB, LaTeX, Markdown, Bash</li>
-            <li><strong>Web:</strong> HTML5, CSS3, JavaScript, jQuery, Bootstrap 4</li>
-            <li><strong>Data/DB:</strong> JSON, YAML, XML; MS‑SQL Server, Oracle (11g SQL Fundamentals)</li>
-            <li><strong>Imaging:</strong> FSLeyes, ITK‑Snap, AFNI, MiPav, DeepLabCut</li>
-            <li><strong>Tools:</strong> VS Code, PyCharm, IntelliJ IDEA, UiPath, ABBYY FlexiCapture 12, Power BI, Azure DevOps (CI/CD)</li>
-            <li><strong>Version Control:</strong> Git, GitHub, TortoiseSVN</li>
-            <li><strong>OS:</strong> Windows, Linux/Unix</li>
-          </ul>
-        </article>
+    <!-- ===================== WORKSHOPS ===================== -->
+    <section id="workshops">
+      <h2>Workshops</h2>
+      <div class="card">
+        <ul class="timeline">
+          <li><span class="date">February – April 2026</span><span><strong>The Ethics of Artificial Intelligence (AI)</strong>, University of Tübingen</span></li>
+          <li><span class="date">December 2025</span><span><strong>Understanding and Using Generative AI</strong>, University of Tübingen</span></li>
+          <li><span class="date">December 2025</span><span><strong>Literature Search</strong>, University of Tübingen</span></li>
+          <li><span class="date">December 2025</span><span><strong>Zotero</strong>, University of Tübingen</span></li>
+          <li><span class="date">November 2025</span><span><strong>Research Training</strong>, University of Tübingen</span></li>
+          <li><span class="date">May 2025</span><span><strong>LaTeX</strong>, University of Tübingen</span></li>
+          <li><span class="date">May 2025</span><span><strong>Regex</strong>, University of Tübingen</span></li>
+          <li><span class="date">May 2025</span><span><strong>Citation Management with Zotero</strong>, University of Tübingen</span></li>
+          <li><span class="date">April 2025</span><span><strong>R</strong>, University of Tübingen</span></li>
+          <li><span class="date">January 2020</span><span><strong>UiPath Hackathon</strong>, Pune, India</span></li>
+          <li><span class="date">February 2017</span><span><strong>Android</strong> Workshop, IIT, New Delhi, India</span></li>
+        </ul>
+      </div>
+    </section>
 
-        <h2 style="margin-top:16px">Certifications</h2>
-        <article class="xp">
-          <ul>
-            <li>RPA Developer Advanced — UiPath (Nov 2018)</li>
-            <li>PG Diploma in Software Engineering — NIIT (Oct 2015 – Jun 2017 · GPA 9/10)</li>
-            <li>Oracle Database 11g: SQL Fundamentals (Aug 2017)</li>
-          </ul>
-        </article>
-
-        <h2 style="margin-top:16px">Awards</h2>
-        <article class="xp">
-          <ul>
-            <li>Star of the Month — Publicis Sapient (2021)</li>
-            <li>Trainer of the Month — NIIT (2018)</li>
-          </ul>
-        </article>
-
-        <h2 style="margin-top:16px">Languages</h2>
-        <article class="xp">
-          <ul>
-            <li>Hindi — Native</li>
-            <li>English — Professional Proficiency</li>
-            <li>German — A1 (DaF‑certified, University of Tübingen)</li>
-          </ul>
-        </article>
-
-        <h2 style="margin-top:16px">Contact</h2>
-        <article class="xp">
-          <ul>
-            <li><a href="tel:+4915140116598">+49 151 4011 6598</a></li>
-            <li><a href="mailto:shreya.jain@tuebingen.mpg.de">shreya.jain@tuebingen.mpg.de</a></li>
-            <li><a href="mailto:shreya.jain@student.uni-tuebingen.de">shreya.jain@student.uni-tuebingen.de</a></li>
-            <li><a href="https://github.com/shreyaj661" target="_blank" rel="noreferrer">github.com/shreyaj661</a></li>
-            <li><a href="https://www.linkedin.com/in/shreyaj661/" target="_blank" rel="noreferrer">linkedin.com/in/shreyaj661</a></li>
-          </ul>
-        </article>
+    <!-- ===================== LANGUAGES ===================== -->
+    <section id="languages">
+      <h2>Languages</h2>
+      <div class="langs">
+        <div class="card"><strong>Hindi</strong><span class="loc">Native</span></div>
+        <div class="card"><strong>English</strong><span class="loc">Professional proficiency</span></div>
+        <div class="card"><strong>German</strong><span class="loc">A1 (DaF certificate, University of Tübingen)</span></div>
       </div>
     </section>
 
     <footer>
-      © <span id="y"></span> Shreya Jain · Built with GitHub Pages
+      © <span id="year">2026</span> Shreya Jain · Built with GitHub Pages
     </footer>
-  </div>
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  </main>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
